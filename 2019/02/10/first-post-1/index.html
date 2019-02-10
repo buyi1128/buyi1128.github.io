@@ -97,6 +97,7 @@
 
 
   <meta name="description" content="发表时间： 2018年 发表期刊: TPAMI 研究内容： 人脸属性分类  主要思路1、 人脸属性之间是有相互关系的，比如一个人如果是男性，那很可能会有胡子，但不大可能涂口红，属性胡子 和 属性男性之前是强联系，{胡子、男性} 和 涂口红 是弱联系。根据属性值的类别，可以将属性分为名词性(nominal)属性和序数性(ordinal)属性，比如年龄的值是大于0小于100的整数，是有序的，就属于序数">
+<meta name="keywords" content="deep learning,face attribute">
 <meta property="og:type" content="article">
 <meta property="og:title" content="论文笔记 《Heterogeneous Face Attribute Estimation:A Deep Multi-Task Learning Approach》">
 <meta property="og:url" content="http://yoursite.com/2019/02/10/first-post-1/index.html">
@@ -105,7 +106,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/02/10/first-post-1/post1_1.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/10/first-post-1/post1_2.png">
-<meta property="og:updated_time" content="2019-02-10T12:45:45.777Z">
+<meta property="og:updated_time" content="2019-02-10T12:49:34.400Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="论文笔记 《Heterogeneous Face Attribute Estimation:A Deep Multi-Task Learning Approach》">
 <meta name="twitter:description" content="发表时间： 2018年 发表期刊: TPAMI 研究内容： 人脸属性分类  主要思路1、 人脸属性之间是有相互关系的，比如一个人如果是男性，那很可能会有胡子，但不大可能涂口红，属性胡子 和 属性男性之前是强联系，{胡子、男性} 和 涂口红 是弱联系。根据属性值的类别，可以将属性分为名词性(nominal)属性和序数性(ordinal)属性，比如年龄的值是大于0小于100的整数，是有序的，就属于序数">
@@ -385,7 +386,7 @@
                 
               
 
-              <time title="Created: 2019-02-10 00:00:00 / Modified: 20:45:45" itemprop="dateCreated datePublished" datetime="2019-02-10T00:00:00+08:00">2019-02-10</time>
+              <time title="Created: 2019-02-10 00:00:00 / Modified: 20:49:34" itemprop="dateCreated datePublished" datetime="2019-02-10T00:00:00+08:00">2019-02-10</time>
             
 
             
@@ -395,6 +396,24 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/deep-learning/" itemprop="url" rel="index"><span itemprop="name">deep learning</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -429,12 +448,7 @@
 <h2 id="网络框架"><a href="#网络框架" class="headerlink" title="网络框架"></a>网络框架</h2><img src="/2019/02/10/first-post-1/post1_1.png" title="This is an image">
 <p>CNN特征提前网络基于AlexNet，在每个卷积层后加入了BN。网络前半部分所有属性共享特征，属性共享特征可以学到属性之间的相互关系。在两层全连接层之后，根据先验知识将属性分类，每个属性类别采用单独的两层全连接网络进行fine-tune。对名词性属性类别采用交叉熵损失，对序数性属性类别采用最小平方差损失。论文没有具体列出属性类别的划分。<br><strong>实验数据集：</strong> MORPH II, CelebA , LFWA, ChaLearn LAP，FotW</p>
 <h2 id="实验结果：CelebA-LFWA"><a href="#实验结果：CelebA-LFWA" class="headerlink" title="实验结果：CelebA, LFWA"></a>实验结果：CelebA, LFWA</h2><img src="/2019/02/10/first-post-1/post1_2.png" title="This is an image">
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇论文主要考虑了属性的类别，根据属性值划分为名词性和序数性，根据属性的判断区域划分为局部属性和全局属性，用CNN提取所有属性的浅层特征，再对不同类别的属性分别用两层全连接层网络，并设计不同的损失函数。不足之处是图像需要预处理，检测人脸和关键点来矫正人脸区域，额外引入关键点检测错误带来的误差。<br>tags:</p>
-<ul>
-<li>deep learning</li>
-<li>face attribute<br>categories:</li>
-<li>deep learning</li>
-</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇论文主要考虑了属性的类别，根据属性值划分为名词性和序数性，根据属性的判断区域划分为局部属性和全局属性，用CNN提取所有属性的浅层特征，再对不同类别的属性分别用两层全连接层网络，并设计不同的损失函数。不足之处是图像需要预处理，检测人脸和关键点来矫正人脸区域，额外引入关键点检测错误带来的误差。</p>
 
       
     </div>
@@ -455,6 +469,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
+          
+            <a href="/tags/face-attribute/" rel="tag"># face attribute</a>
+          
+        </div>
       
 
       
@@ -536,7 +558,35 @@
               
 
               
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">categories</span>
+                  
+                </div>
+              
 
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
               
             </nav>
           
