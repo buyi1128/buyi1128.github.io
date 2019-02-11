@@ -96,18 +96,21 @@
 
 
 
-  <meta name="description" content="天道酬勤">
+  <meta name="description" content="Github博客搭建比较流行的是JekyII和Hexo，JekyII直接在github上编辑修改，Hexo是在本地编写并生成网页文件，再上传github。两者都支持markdown语法，网上查了一下发现大都用Hexo，大概是Hexo的模版更好看吧，所以花了几天时间用Hexo和NexT模版搭建了github博客，记录一下流程以及踩过的坑。 Hexo简介、安装Hexo 基于 Node.js 的静态博客">
 <meta name="keywords" content="configuration">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo搭建博客并发布文章完整流程以及踩过的坑">
+<meta property="og:title" content="Mac下用Hexo搭建博客写文章完整流程以及踩过的坑">
 <meta property="og:url" content="http://yoursite.com/2019/02/10/hexo-post/index.html">
 <meta property="og:site_name" content="Yuanyuan&#39;s blog">
-<meta property="og:description" content="天道酬勤">
+<meta property="og:description" content="Github博客搭建比较流行的是JekyII和Hexo，JekyII直接在github上编辑修改，Hexo是在本地编写并生成网页文件，再上传github。两者都支持markdown语法，网上查了一下发现大都用Hexo，大概是Hexo的模版更好看吧，所以花了几天时间用Hexo和NexT模版搭建了github博客，记录一下流程以及踩过的坑。 Hexo简介、安装Hexo 基于 Node.js 的静态博客">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-10T13:00:20.693Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/10/hexo-post/hexo-post-1.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/10/hexo-post/hexo-post-2.png">
+<meta property="og:updated_time" content="2019-02-11T06:24:29.215Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo搭建博客并发布文章完整流程以及踩过的坑">
-<meta name="twitter:description" content="天道酬勤">
+<meta name="twitter:title" content="Mac下用Hexo搭建博客写文章完整流程以及踩过的坑">
+<meta name="twitter:description" content="Github博客搭建比较流行的是JekyII和Hexo，JekyII直接在github上编辑修改，Hexo是在本地编写并生成网页文件，再上传github。两者都支持markdown语法，网上查了一下发现大都用Hexo，大概是Hexo的模版更好看吧，所以花了几天时间用Hexo和NexT模版搭建了github博客，记录一下流程以及踩过的坑。 Hexo简介、安装Hexo 基于 Node.js 的静态博客">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/10/hexo-post/hexo-post-1.png">
 
 
 
@@ -124,7 +127,7 @@
   };
 </script>
 
-  <title>Hexo搭建博客并发布文章完整流程以及踩过的坑 | Yuanyuan's blog</title>
+  <title>Mac下用Hexo搭建博客写文章完整流程以及踩过的坑 | Yuanyuan's blog</title>
   
 
 
@@ -357,7 +360,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hexo搭建博客并发布文章完整流程以及踩过的坑
+          <h1 class="post-title" itemprop="name headline">Mac下用Hexo搭建博客写文章完整流程以及踩过的坑
 
               
             
@@ -383,12 +386,24 @@
                 
               
 
-              <time title="Created: 2019-02-10 20:51:14 / Modified: 21:00:20" itemprop="dateCreated datePublished" datetime="2019-02-10T20:51:14+08:00">2019-02-10</time>
+              <time title="Created: 2019-02-10 20:51:14" itemprop="dateCreated datePublished" datetime="2019-02-10T20:51:14+08:00">2019-02-10</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-02-11 14:24:29" itemprop="dateModified" datetime="2019-02-11T14:24:29+08:00">2019-02-11</time>
               
             
           </span>
@@ -440,7 +455,53 @@
       
 
       
-        
+        <p>Github博客搭建比较流行的是JekyII和Hexo，JekyII直接在github上编辑修改，Hexo是在本地编写并生成网页文件，再上传github。两者都支持markdown语法，网上查了一下发现大都用Hexo，大概是Hexo的模版更好看吧，所以花了几天时间用Hexo和NexT模版搭建了github博客，记录一下流程以及踩过的坑。</p>
+<h2 id="Hexo简介、安装"><a href="#Hexo简介、安装" class="headerlink" title="Hexo简介、安装"></a>Hexo简介、安装</h2><p><strong><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo</a></strong> 基于 Node.js 的静态博客框架，能快速生成静态网页。<br>安装需要先安装Git和Node.js. Git可以在<a href="https://git-scm.com" target="_blank" rel="noopener">Git官网</a>下载安装，并配置用户名，生成ssh和github账号绑定。<br>Node.js平台是在后端运行JavaScript代码，可以在<a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js官网</a>下载安装，Node.js会包含环境变量及npm的安装,npm是Node.js的包管理工具（package manager)。安装后，在命令行中输入 <code>node -v</code> 检测Node.js是否安装成功，输入 <code>npm -v</code> 检测npm是否安装成功。</p>
+<p><strong>安装Hexo:</strong> <br><br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure></p>
+<h2 id="Github创建博客项目"><a href="#Github创建博客项目" class="headerlink" title="Github创建博客项目"></a>Github创建博客项目</h2><p>登录github，新建仓库，名为<code>username.github.io</code>，username是GitHub用户名，clone该仓库到本地，打开终端，进入该仓库下，<br><br><strong>注意: git分支名必须为master 或者 gh-pages</strong></p>
+<ul>
+<li>新建文件夹blog作为博客站点：<code>mkdir blog</code></li>
+<li>进入blog目录下：<code>cd blog</code></li>
+<li>hexo初始化：<code>hexo init</code></li>
+<li>安装npm：<code>npm installl</code></li>
+<li>开启hexo服务：<code>hexo s</code></li>
+<li>在浏览器打开<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a>，出现hexo主题网页。<br><img src="/2019/02/10/hexo-post/hexo-post-1.png" title="This is an image"></li>
+<li>找到blog文件夹下的配置文件<code>_config.yml</code></li>
+<li>编辑<code>title</code>修改博客名称</li>
+<li>编辑<code>description</code>修改博客座右铭</li>
+<li>编辑<code>author</code>修改作者名称</li>
+<li><p>编辑<code>language</code>修改语言</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">title: Yuanyuan&apos;s blog</span><br><span class="line">subtitle:</span><br><span class="line">description: 天道酬勤</span><br><span class="line">keywords:</span><br><span class="line">author: yuanyuan</span><br><span class="line">language: zh-Hans</span><br><span class="line">timezone:</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑<code>deploy</code>进行发布</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line"> type: git</span><br><span class="line"> repository: https://github.com/buyi1128/buyi1128.github.io.git</span><br><span class="line"> branch: master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在本地生成静态网页：<code>hexo g</code></p>
+</li>
+<li>发布到github上：<code>hexo d</code></li>
+</ul>
+<p><strong>注意：如果出现无法连接git或找不到git错误，则通过安装<code>hexo-deployer-git</code>来解决，<br>命令为<code>npm install hexo-deployer-git --save</code> ，再重新执行<code>hexo g</code>和<code>hexo d</code></strong></p>
+<h2 id="使用NexT模版"><a href="#使用NexT模版" class="headerlink" title="使用NexT模版"></a>使用NexT模版</h2><p>Hexo有很多漂亮的主题，链接在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">这儿</a>，我选用<a href="https://theme-next.org" target="_blank" rel="noopener">NexT</a>。将<code>NexT</code>clone到blog文件夹下，目录结构为:<br><br><img src="/2019/02/10/hexo-post/hexo-post-2.png" title="This is an image"></p>
+<p>编辑blog文件下的<code>_config.yml</code>，修改<code>theme: next</code><br><br><strong>注意：此时有两个<code>_config.yml</code>配置文件，一个是<code>blog</code>文件夹下的，称为 站点配置文件 ，另一个是<code>next</code>文件夹下的，称为主题配置文件。</strong><br><br>可以根据<a href="https://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">NexT官方教程</a>设置菜单、侧栏、头像等，<strong>注意头像图片大小最好为225*225</strong></p>
+<h2 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h2><ul>
+<li><p>新建文章 <code>hexo new postname</code>，在目录<code>blog/source/_posts</code>下会出现<code>postname.md</code>的markdown文件，初始化为：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: post3 // 文章名，修改为自己的文章名</span><br><span class="line">date: 2019-02-11 14:08:21  // 日期</span><br><span class="line">tags:  // 标签</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>增加标签和类别：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: post3 // 文章名，修改为自己的文章名</span><br><span class="line">date: 2019-02-11 14:08:21  // 日期</span><br><span class="line">tags:</span><br><span class="line">- your tag </span><br><span class="line">- your tag</span><br><span class="line">categories:</span><br><span class="line">- your categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>注意：添加图片的正确方式</strong> <br><br>修改<code>blog</code>文件夹下的<code>post_asset_folder: true</code>，这样每当新建一个文章时，会在<code>blog/source/_posts</code>生成对应的文件夹，用来存放该文章用到的图片。<br><br>用<code></code>来添加图片，可以解决图片无法显示，图片404的问题，图片在本地可以显示但在服务器上无法显示的问题。</p>
+</li>
+<li>创建“分类”选项和“标签”选项，参考<a href="https://linlif.github.io/2017/05/27/Hexo使用攻略-添加分类及标签/" target="_blank" rel="noopener">Hexo使用攻略-添加分类及标签</a></li>
+</ul>
+<p><strong>参考</strong> </p>
+<ul>
+<li><a href="https://neveryu.github.io/2016/09/03/hexo-next-one/" target="_blank" rel="noopener">Hexo-NexT搭建个人博客</a></li>
+<li><a href="http://gonghonglou.com/2016/02/03/firstblog/" target="_blank" rel="noopener">Mac上搭建基于GitHub的Hexo博客</a></li>
+<li><a href="https://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">NexT官方教程</a></li>
+<li><a href="https://linlif.github.io/2017/05/27/Hexo使用攻略-添加分类及标签/" target="_blank" rel="noopener">Hexo使用攻略-添加分类及标签</a></li>
+</ul>
+
       
     </div>
 
@@ -529,8 +590,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -557,7 +627,7 @@
                 
                 
                 <div class="site-state-item site-state-categories">
-                  
+                  <a href="/categories/index.html">
                     
                     
                       
@@ -566,7 +636,7 @@
                     
                     <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">categories</span>
-                  
+                  </a>
                 </div>
               
 
@@ -608,6 +678,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo简介、安装"><span class="nav-number">1.</span> <span class="nav-text">Hexo简介、安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Github创建博客项目"><span class="nav-number">2.</span> <span class="nav-text">Github创建博客项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用NexT模版"><span class="nav-number">3.</span> <span class="nav-text">使用NexT模版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建文章"><span class="nav-number">4.</span> <span class="nav-text">新建文章</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
