@@ -339,6 +339,212 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/21/face-alignment1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuanyuan">
+      <meta itemprop="description" content="天道酬勤">
+      <meta itemprop="image" content="/images/yuanyuan.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuanyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/02/21/face-alignment1/" class="post-title-link" itemprop="url">人脸对齐系列总结(一) --- 人脸任务概述</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-21 21:50:07" itemprop="dateCreated datePublished" datetime="2019-02-21T21:50:07+08:00">2019-02-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-02-22 10:49:52" itemprop="dateModified" datetime="2019-02-22T10:49:52+08:00">2019-02-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/deep-learning/" itemprop="url" rel="index"><span itemprop="name">deep learning</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>计算机视觉上的人脸任务大致可以分为四类：  </p>
+<ul>
+<li><p>人脸检测(Face Detection)</p>
+<ul>
+<li>检测输入图片的人脸区域，如果输入图片存在多个人脸，要检测出所有人脸。</li>
+<li>难点：多个人脸存在多尺寸问题，人脸部分遮挡，人脸表情姿态各异等</li>
+<li><img src="/2019/02/21/face-alignment1/detection.png" title="This is an image">
+</li>
+</ul>
+</li>
+<li><p>人脸对齐(Face Alignment)</p>
+<ul>
+<li>人脸对齐也叫人脸关键点定位(facial landmark)，在人脸检测的基础上，找到眉毛、眼睛、鼻子、嘴巴、人脸轮廓等的位置，最少的有5个关键点(两只眼睛瞳孔中心点、鼻尖、左右嘴角)，常见的有68个关键点。</li>
+<li><img src="/2019/02/21/face-alignment1/alignment.png" title="This is an image"></li>
+</ul>
+</li>
+<li>人脸核实(Face Verification)<ul>
+<li>人脸核实是判断人脸是否是某个人，输出结果为是或者不是，如下图，需要查询输入图片的人物名字是不是SW，因此找到图片库中人物名字为SW的图片，与输入图片进行比较，如果是同一个人，则返回yes，否则返回no。</li>
+<li><img src="/2019/02/21/face-alignment1/verification.png" title="This is an image"></li>
+</ul>
+</li>
+<li>人脸识别(Face Recognition)<ul>
+<li>人脸识别也可以理解为人脸鉴定(face identification)，是指查询输入人脸图片的身份信息，返回的是输入图片的人名。</li>
+<li>如下图，给定输入图片，需要知道这个图片的人是谁，因此对图片库的每一张图片进行对比，如果是同一个人，则返回图片库中对应图片的人名。</li>
+<li><img src="/2019/02/21/face-alignment1/identification.png" title="This is an image">
+</li>
+</ul>
+</li>
+</ul>
+<p>总结一下，现实场景中最常用的是人脸核实和人脸鉴定，但这两个任务都需要先进行人脸检测，然后提取人脸特征，进行特征度量计算，找出特征最相近的人脸。人脸对齐可以辅助人脸核实，表情分析，三维人脸重建等。</p>
+<h2 id="人脸检测-Face-Detection"><a href="#人脸检测-Face-Detection" class="headerlink" title="人脸检测(Face Detection)"></a>人脸检测(Face Detection)</h2><h2 id="人脸对齐-Face-Alignment"><a href="#人脸对齐-Face-Alignment" class="headerlink" title="人脸对齐(Face Alignment)"></a>人脸对齐(Face Alignment)</h2><h2 id="人脸核实-Face-Verification"><a href="#人脸核实-Face-Verification" class="headerlink" title="人脸核实(Face Verification)"></a>人脸核实(Face Verification)</h2><h2 id="人脸鉴定-Face-Identification"><a href="#人脸鉴定-Face-Identification" class="headerlink" title="人脸鉴定(Face Identification)"></a>人脸鉴定(Face Identification)</h2><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/42968117" target="_blank" rel="noopener">人脸关键点检测综述</a></li>
+<li><a href=""></a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/10/hexo-post/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -401,7 +607,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-11 14:24:29" itemprop="dateModified" datetime="2019-02-11T14:24:29+08:00">2019-02-11</time>
+                <time title="Modified: 2019-02-21 21:49:20" itemprop="dateModified" datetime="2019-02-21T21:49:20+08:00">2019-02-21</time>
               
             
           </span>
@@ -490,7 +696,7 @@
 <li><p>增加标签和类别：</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: post3 // 文章名，修改为自己的文章名</span><br><span class="line">date: 2019-02-11 14:08:21  // 日期</span><br><span class="line">tags:</span><br><span class="line">- your tag </span><br><span class="line">- your tag</span><br><span class="line">categories:</span><br><span class="line">- your categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><strong>注意：添加图片的正确方式</strong> <br><br>修改<code>blog</code>文件夹下的<code>post_asset_folder: true</code>，这样每当新建一个文章时，会在<code>blog/source/_posts</code>生成对应的文件夹，用来存放该文章用到的图片。<br><br>用<code></code>来添加图片，可以解决图片无法显示，图片404的问题，图片在本地可以显示但在服务器上无法显示的问题。</p>
+<li><p><strong>注意：添加图片的正确方式</strong> <br><br>修改<code>blog</code>文件夹下的<code>post_asset_folder: true</code>，这样每当新建一个文章时，会在<code>blog/source/_posts</code>生成对应的文件夹，用来存放该文章用到的图片。<br><br>用<code>\</code>来添加图片，可以解决图片无法显示，图片404的问题，图片在本地可以显示但在服务器上无法显示的问题。</p>
 </li>
 <li>创建“分类”选项和“标签”选项，参考<a href="https://linlif.github.io/2017/05/27/Hexo使用攻略-添加分类及标签/" target="_blank" rel="noopener">Hexo使用攻略-添加分类及标签</a></li>
 </ul>
@@ -753,7 +959,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
