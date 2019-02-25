@@ -96,32 +96,30 @@
 
 
 
-  <meta name="description" content="计算机视觉上的人脸任务大致可以分为四类：    人脸检测(Face Detection)  检测输入图片的人脸区域，如果输入图片存在多个人脸，要检测出所有人脸。 难点：多个人脸存在多尺寸问题，人脸部分遮挡，人脸表情姿态各异等    人脸对齐(Face Alignment)  人脸对齐也叫人脸关键点定位(facial landmark)，在人脸检测的基础上，找到眉毛、眼睛、鼻子、嘴巴、人脸轮廓等的位">
-<meta name="keywords" content="deep learning,face attribute">
+  <meta name="description" content="人脸关键点检测简介人脸关键点检测也叫人脸对齐，英文名facial landmark, face alignment. 定位人脸的眉毛、眼睛、鼻子、嘴巴、人脸轮廓等。不同的数据集有不同的标记点个数，最少的标记5个关键点(两只眼睛瞳孔中心，鼻尖，左右嘴角)，常见的有68个关键点，也有上百个关键点的。人脸关键点大多是在人脸检测的基础上进行的，首先要用face detection方法检测出人脸区域，在人脸">
+<meta name="keywords" content="deep learning,face alignment">
 <meta property="og:type" content="article">
-<meta property="og:title" content="人脸对齐系列总结(一) --- 人脸任务概述">
-<meta property="og:url" content="http://yoursite.com/2019/02/21/face-alignment1/index.html">
+<meta property="og:title" content="人脸对齐系列总结(二) --- 人脸关键点检测综述">
+<meta property="og:url" content="http://yoursite.com/2019/02/22/face-alignment2/index.html">
 <meta property="og:site_name" content="Yuanyuan&#39;s blog">
-<meta property="og:description" content="计算机视觉上的人脸任务大致可以分为四类：    人脸检测(Face Detection)  检测输入图片的人脸区域，如果输入图片存在多个人脸，要检测出所有人脸。 难点：多个人脸存在多尺寸问题，人脸部分遮挡，人脸表情姿态各异等    人脸对齐(Face Alignment)  人脸对齐也叫人脸关键点定位(facial landmark)，在人脸检测的基础上，找到眉毛、眼睛、鼻子、嘴巴、人脸轮廓等的位">
+<meta property="og:description" content="人脸关键点检测简介人脸关键点检测也叫人脸对齐，英文名facial landmark, face alignment. 定位人脸的眉毛、眼睛、鼻子、嘴巴、人脸轮廓等。不同的数据集有不同的标记点个数，最少的标记5个关键点(两只眼睛瞳孔中心，鼻尖，左右嘴角)，常见的有68个关键点，也有上百个关键点的。人脸关键点大多是在人脸检测的基础上进行的，首先要用face detection方法检测出人脸区域，在人脸">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/02/21/face-alignment1/detection.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/21/face-alignment1/alignment.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/21/face-alignment1/verification.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/21/face-alignment1/identification.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/21/face-alignment1/company.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/21/face-alignment1/company1.png">
-<meta property="og:updated_time" content="2019-02-25T02:27:46.672Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/22/face-alignment2/challenge.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/22/face-alignment2/alignment.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/22/face-alignment2/68pts.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/22/face-alignment2/dataset.png">
+<meta property="og:updated_time" content="2019-02-25T02:38:27.257Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="人脸对齐系列总结(一) --- 人脸任务概述">
-<meta name="twitter:description" content="计算机视觉上的人脸任务大致可以分为四类：    人脸检测(Face Detection)  检测输入图片的人脸区域，如果输入图片存在多个人脸，要检测出所有人脸。 难点：多个人脸存在多尺寸问题，人脸部分遮挡，人脸表情姿态各异等    人脸对齐(Face Alignment)  人脸对齐也叫人脸关键点定位(facial landmark)，在人脸检测的基础上，找到眉毛、眼睛、鼻子、嘴巴、人脸轮廓等的位">
-<meta name="twitter:image" content="http://yoursite.com/2019/02/21/face-alignment1/detection.png">
+<meta name="twitter:title" content="人脸对齐系列总结(二) --- 人脸关键点检测综述">
+<meta name="twitter:description" content="人脸关键点检测简介人脸关键点检测也叫人脸对齐，英文名facial landmark, face alignment. 定位人脸的眉毛、眼睛、鼻子、嘴巴、人脸轮廓等。不同的数据集有不同的标记点个数，最少的标记5个关键点(两只眼睛瞳孔中心，鼻尖，左右嘴角)，常见的有68个关键点，也有上百个关键点的。人脸关键点大多是在人脸检测的基础上进行的，首先要用face detection方法检测出人脸区域，在人脸">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/22/face-alignment2/challenge.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/21/face-alignment1/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/22/face-alignment2/">
 
 
 
@@ -131,7 +129,7 @@
   };
 </script>
 
-  <title>人脸对齐系列总结(一) --- 人脸任务概述 | Yuanyuan's blog</title>
+  <title>人脸对齐系列总结(二) --- 人脸关键点检测综述 | Yuanyuan's blog</title>
   
 
 
@@ -347,7 +345,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/21/face-alignment1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/22/face-alignment2/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuanyuan">
@@ -364,7 +362,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">人脸对齐系列总结(一) --- 人脸任务概述
+          <h1 class="post-title" itemprop="name headline">人脸对齐系列总结(二) --- 人脸关键点检测综述
 
               
             
@@ -390,7 +388,7 @@
                 
               
 
-              <time title="Created: 2019-02-21 21:50:07" itemprop="dateCreated datePublished" datetime="2019-02-21T21:50:07+08:00">2019-02-21</time>
+              <time title="Created: 2019-02-22 13:24:50" itemprop="dateCreated datePublished" datetime="2019-02-22T13:24:50+08:00">2019-02-22</time>
             
 
             
@@ -407,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-25 10:27:46" itemprop="dateModified" datetime="2019-02-25T10:27:46+08:00">2019-02-25</time>
+                <time title="Modified: 2019-02-25 10:38:27" itemprop="dateModified" datetime="2019-02-25T10:38:27+08:00">2019-02-25</time>
               
             
           </span>
@@ -459,36 +457,39 @@
       
 
       
-        <p>计算机视觉上的人脸任务大致可以分为四类：  </p>
+        <h2 id="人脸关键点检测简介"><a href="#人脸关键点检测简介" class="headerlink" title="人脸关键点检测简介"></a>人脸关键点检测简介</h2><p>人脸关键点检测也叫人脸对齐，英文名facial landmark, face alignment. 定位人脸的眉毛、眼睛、鼻子、嘴巴、人脸轮廓等。不同的数据集有不同的标记点个数，最少的标记5个关键点(两只眼睛瞳孔中心，鼻尖，左右嘴角)，常见的有68个关键点，也有上百个关键点的。人脸关键点大多是在人脸检测的基础上进行的，首先要用face detection方法检测出人脸区域，在人脸区域上进行关键点定位。</p>
+<h2 id="任务难点"><a href="#任务难点" class="headerlink" title="任务难点"></a>任务难点</h2><ul>
+<li>人脸姿态(pose)变化</li>
+<li>部分遮挡(occlusion)</li>
+<li>表情(expression)变化</li>
+<li><p>光照(illumination)影响</p>
+<img src="/2019/02/22/face-alignment2/challenge.png" title="This is an image">
+<img src="/2019/02/22/face-alignment2/alignment.png" width="500" height="500">
+<p>68个关键点标记图 <br></p>
+<img src="/2019/02/22/face-alignment2/68pts.png" width="400" height="300">
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>下图数据集整理参考计算机学报<a href="http://cjc.ict.ac.cn/online/cre/lyl-2016630151201-201699140749.pdf" target="_blank" rel="noopener">人脸特征点提取方法综述</a> <br><br>另外还有<a href="http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html" target="_blank" rel="noopener">CelebA</a>数据集，共有20多万张图片，但是只标记了5个关键点。</p>
+<img src="/2019/02/22/face-alignment2/dataset.png" title="This is an image">
+</li>
+</ul>
+<h2 id="论文整理"><a href="#论文整理" class="headerlink" title="论文整理"></a>论文整理</h2><h3 id="论文方法分类"><a href="#论文方法分类" class="headerlink" title="论文方法分类"></a>论文方法分类</h3><p>分类方法仅限于个人理解，欢迎各位大佬指正 </p>
 <ul>
-<li><p>人脸检测(Face Detection)</p>
+<li>点分布模型(Point Distribution Model)</li>
+<li>级联形状回归(Cascade Shape Regression)<ul>
+<li>基于传统特征提取方法的级联形状回归<ul>
+<li>基于深度学习提取特征的级联形状回归</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="点分布模型-Point-Distribution-Model"><a href="#点分布模型-Point-Distribution-Model" class="headerlink" title="点分布模型(Point Distribution Model)"></a>点分布模型(Point Distribution Model)</h4><h4 id="级联形状回归-Cascade-Shape-Regression"><a href="#级联形状回归-Cascade-Shape-Regression" class="headerlink" title="级联形状回归(Cascade Shape Regression)"></a>级联形状回归(Cascade Shape Regression)</h4><p>另一种分类方式，参考论文《Look at Boundary-Aware Face Alignment Algorithm》，根据坐标点的预测方式分为： </p>
 <ul>
-<li>检测输入图片的人脸区域，如果输入图片存在多个人脸，要检测出所有人脸。</li>
-<li>难点：多个人脸存在多尺寸问题，人脸部分遮挡，人脸表情姿态各异等<img src="/2019/02/21/face-alignment1/detection.png" width="500" height="300">
-</li>
+<li>坐标回归模型(Coordinate regression models)</li>
+<li>热力图回归模型(Heatmap regression models)</li>
 </ul>
-</li>
-<li><p>人脸对齐(Face Alignment)</p>
-<ul>
-<li>人脸对齐也叫人脸关键点定位(facial landmark)，在人脸检测的基础上，找到眉毛、眼睛、鼻子、嘴巴、人脸轮廓等的位置，最少的有5个关键点(两只眼睛瞳孔中心点、鼻尖、左右嘴角)，常见的有68个关键点。<img src="/2019/02/21/face-alignment1/alignment.png" width="600" height="300"></li>
-</ul>
-</li>
-<li>人脸核实(Face Verification)<ul>
-<li>人脸核实是判断人脸是否是某个人，输出结果为是或者不是，如下图，需要查询输入图片的人物名字是不是SW，因此找到图片库中人物名字为SW的图片，与输入图片进行比较，如果是同一个人，则返回yes，否则返回no。<img src="/2019/02/21/face-alignment1/verification.png" width="400" height="200"></li>
-</ul>
-</li>
-<li>人脸识别(Face Recognition)<ul>
-<li>人脸识别也可以理解为人脸鉴定(face identification)，是指查询输入人脸图片的身份信息，返回的是输入图片的人名。</li>
-<li>如下图，给定输入图片，需要知道这个图片的人是谁，因此对图片库的每一张图片进行对比，如果是同一个人，则返回图片库中对应图片的人名。<img src="/2019/02/21/face-alignment1/identification.png" width="400" height="200">
-</li>
-</ul>
-</li>
-</ul>
-<p>总结一下，现实场景中最常用的是人脸核实和人脸鉴定，但这两个任务都需要先进行人脸检测，然后提取人脸特征，进行特征度量计算，找出特征最相近的人脸。人脸对齐可以辅助人脸核实，表情分析，三维人脸重建等。</p>
-<h2 id="人脸识别-Face-Recognition-行业现状"><a href="#人脸识别-Face-Recognition-行业现状" class="headerlink" title="人脸识别(Face Recognition)行业现状"></a>人脸识别(Face Recognition)行业现状</h2><p>下图是国内人脸识别公司排行，选自 2018《互联网周刊》&amp;eNet研究院选择排行<br><img src="/2019/02/21/face-alignment1/company.png" width="400" height="100"><br>下图是四大独角兽(旷世科技，商汤科技，云从科技，依图科技)的细分领域对比表。<br><img src="/2019/02/21/face-alignment1/company1.png" width="500" height="200"></p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li><a href="https://zhuanlan.zhihu.com/p/42968117" target="_blank" rel="noopener">人脸关键点检测综述</a></li>
-<li><a href="https://www.jianshu.com/p/639e3f8b7253" target="_blank" rel="noopener">人脸识别长篇研究</a></li>
+<h4 id="坐标回归模型-Coordinate-regression-models"><a href="#坐标回归模型-Coordinate-regression-models" class="headerlink" title="坐标回归模型(Coordinate regression models)"></a>坐标回归模型(Coordinate regression models)</h4><h4 id="热力图回归模型-Heatmap-regression-models"><a href="#热力图回归模型-Heatmap-regression-models" class="headerlink" title="热力图回归模型(Heatmap regression models)"></a>热力图回归模型(Heatmap regression models)</h4><h2 id="经典论文阅读笔记"><a href="#经典论文阅读笔记" class="headerlink" title="经典论文阅读笔记"></a>经典论文阅读笔记</h2><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="http://cjc.ict.ac.cn/online/cre/lyl-2016630151201-201699140749.pdf" target="_blank" rel="noopener">人脸特征点提取方法综述</a></li>
+<li></li>
 </ul>
 
       
@@ -515,7 +516,7 @@
           
             <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
           
-            <a href="/tags/face-attribute/" rel="tag"># face attribute</a>
+            <a href="/tags/face-alignment/" rel="tag"># face alignment</a>
           
         </div>
       
@@ -528,8 +529,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/10/hexo-post/" rel="next" title="Mac下用Hexo搭建博客写文章完整流程以及踩过的坑">
-                <i class="fa fa-chevron-left"></i> Mac下用Hexo搭建博客写文章完整流程以及踩过的坑
+              <a href="/2019/02/21/face-alignment1/" rel="next" title="人脸对齐系列总结(一) --- 人脸任务概述">
+                <i class="fa fa-chevron-left"></i> 人脸对齐系列总结(一) --- 人脸任务概述
               </a>
             
           </div>
@@ -537,10 +538,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/22/face-alignment2/" rel="prev" title="人脸对齐系列总结(二) --- 人脸关键点检测综述">
-                人脸对齐系列总结(二) --- 人脸关键点检测综述 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -686,7 +683,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#人脸识别-Face-Recognition-行业现状"><span class="nav-number">1.</span> <span class="nav-text">人脸识别(Face Recognition)行业现状</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">2.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#人脸关键点检测简介"><span class="nav-number">1.</span> <span class="nav-text">人脸关键点检测简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务难点"><span class="nav-number">2.</span> <span class="nav-text">任务难点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据集"><span class="nav-number">3.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#论文整理"><span class="nav-number">4.</span> <span class="nav-text">论文整理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#论文方法分类"><span class="nav-number">4.1.</span> <span class="nav-text">论文方法分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#点分布模型-Point-Distribution-Model"><span class="nav-number">4.1.1.</span> <span class="nav-text">点分布模型(Point Distribution Model)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#级联形状回归-Cascade-Shape-Regression"><span class="nav-number">4.1.2.</span> <span class="nav-text">级联形状回归(Cascade Shape Regression)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#坐标回归模型-Coordinate-regression-models"><span class="nav-number">4.1.3.</span> <span class="nav-text">坐标回归模型(Coordinate regression models)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#热力图回归模型-Heatmap-regression-models"><span class="nav-number">4.1.4.</span> <span class="nav-text">热力图回归模型(Heatmap regression models)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#经典论文阅读笔记"><span class="nav-number">5.</span> <span class="nav-text">经典论文阅读笔记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>

@@ -339,6 +339,212 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/22/face-alignment2/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuanyuan">
+      <meta itemprop="description" content="天道酬勤">
+      <meta itemprop="image" content="/images/yuanyuan.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuanyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/02/22/face-alignment2/" class="post-title-link" itemprop="url">人脸对齐系列总结(二) --- 人脸关键点检测综述</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-22 13:24:50" itemprop="dateCreated datePublished" datetime="2019-02-22T13:24:50+08:00">2019-02-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-02-25 10:38:27" itemprop="dateModified" datetime="2019-02-25T10:38:27+08:00">2019-02-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/deep-learning/" itemprop="url" rel="index"><span itemprop="name">deep learning</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="人脸关键点检测简介"><a href="#人脸关键点检测简介" class="headerlink" title="人脸关键点检测简介"></a>人脸关键点检测简介</h2><p>人脸关键点检测也叫人脸对齐，英文名facial landmark, face alignment. 定位人脸的眉毛、眼睛、鼻子、嘴巴、人脸轮廓等。不同的数据集有不同的标记点个数，最少的标记5个关键点(两只眼睛瞳孔中心，鼻尖，左右嘴角)，常见的有68个关键点，也有上百个关键点的。人脸关键点大多是在人脸检测的基础上进行的，首先要用face detection方法检测出人脸区域，在人脸区域上进行关键点定位。</p>
+<h2 id="任务难点"><a href="#任务难点" class="headerlink" title="任务难点"></a>任务难点</h2><ul>
+<li>人脸姿态(pose)变化</li>
+<li>部分遮挡(occlusion)</li>
+<li>表情(expression)变化</li>
+<li><p>光照(illumination)影响</p>
+<img src="/2019/02/22/face-alignment2/challenge.png" title="This is an image">
+<img src="/2019/02/22/face-alignment2/alignment.png" width="500" height="500">
+<p>68个关键点标记图 <br></p>
+<img src="/2019/02/22/face-alignment2/68pts.png" width="400" height="300">
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>下图数据集整理参考计算机学报<a href="http://cjc.ict.ac.cn/online/cre/lyl-2016630151201-201699140749.pdf" target="_blank" rel="noopener">人脸特征点提取方法综述</a> <br><br>另外还有<a href="http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html" target="_blank" rel="noopener">CelebA</a>数据集，共有20多万张图片，但是只标记了5个关键点。</p>
+<img src="/2019/02/22/face-alignment2/dataset.png" title="This is an image">
+</li>
+</ul>
+<h2 id="论文整理"><a href="#论文整理" class="headerlink" title="论文整理"></a>论文整理</h2><h3 id="论文方法分类"><a href="#论文方法分类" class="headerlink" title="论文方法分类"></a>论文方法分类</h3><p>分类方法仅限于个人理解，欢迎各位大佬指正 </p>
+<ul>
+<li>点分布模型(Point Distribution Model)</li>
+<li>级联形状回归(Cascade Shape Regression)<ul>
+<li>基于传统特征提取方法的级联形状回归<ul>
+<li>基于深度学习提取特征的级联形状回归</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="点分布模型-Point-Distribution-Model"><a href="#点分布模型-Point-Distribution-Model" class="headerlink" title="点分布模型(Point Distribution Model)"></a>点分布模型(Point Distribution Model)</h4><h4 id="级联形状回归-Cascade-Shape-Regression"><a href="#级联形状回归-Cascade-Shape-Regression" class="headerlink" title="级联形状回归(Cascade Shape Regression)"></a>级联形状回归(Cascade Shape Regression)</h4><p>另一种分类方式，参考论文《Look at Boundary-Aware Face Alignment Algorithm》，根据坐标点的预测方式分为： </p>
+<ul>
+<li>坐标回归模型(Coordinate regression models)</li>
+<li>热力图回归模型(Heatmap regression models)</li>
+</ul>
+<h4 id="坐标回归模型-Coordinate-regression-models"><a href="#坐标回归模型-Coordinate-regression-models" class="headerlink" title="坐标回归模型(Coordinate regression models)"></a>坐标回归模型(Coordinate regression models)</h4><h4 id="热力图回归模型-Heatmap-regression-models"><a href="#热力图回归模型-Heatmap-regression-models" class="headerlink" title="热力图回归模型(Heatmap regression models)"></a>热力图回归模型(Heatmap regression models)</h4><h2 id="经典论文阅读笔记"><a href="#经典论文阅读笔记" class="headerlink" title="经典论文阅读笔记"></a>经典论文阅读笔记</h2><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="http://cjc.ict.ac.cn/online/cre/lyl-2016630151201-201699140749.pdf" target="_blank" rel="noopener">人脸特征点提取方法综述</a></li>
+<li></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/21/face-alignment1/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -401,7 +607,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-22 12:58:59" itemprop="dateModified" datetime="2019-02-22T12:58:59+08:00">2019-02-22</time>
+                <time title="Modified: 2019-02-25 10:27:46" itemprop="dateModified" datetime="2019-02-25T10:27:46+08:00">2019-02-25</time>
               
             
           </span>
@@ -460,32 +666,28 @@
 <li><p>人脸检测(Face Detection)</p>
 <ul>
 <li>检测输入图片的人脸区域，如果输入图片存在多个人脸，要检测出所有人脸。</li>
-<li>难点：多个人脸存在多尺寸问题，人脸部分遮挡，人脸表情姿态各异等</li>
-<li><img src="/2019/02/21/face-alignment1/detection.png" title="This is an image">
+<li>难点：多个人脸存在多尺寸问题，人脸部分遮挡，人脸表情姿态各异等<img src="/2019/02/21/face-alignment1/detection.png" width="500" height="300">
 </li>
 </ul>
 </li>
 <li><p>人脸对齐(Face Alignment)</p>
 <ul>
-<li>人脸对齐也叫人脸关键点定位(facial landmark)，在人脸检测的基础上，找到眉毛、眼睛、鼻子、嘴巴、人脸轮廓等的位置，最少的有5个关键点(两只眼睛瞳孔中心点、鼻尖、左右嘴角)，常见的有68个关键点。</li>
-<li><img src="/2019/02/21/face-alignment1/alignment.png" title="This is an image"></li>
+<li>人脸对齐也叫人脸关键点定位(facial landmark)，在人脸检测的基础上，找到眉毛、眼睛、鼻子、嘴巴、人脸轮廓等的位置，最少的有5个关键点(两只眼睛瞳孔中心点、鼻尖、左右嘴角)，常见的有68个关键点。<img src="/2019/02/21/face-alignment1/alignment.png" width="600" height="300"></li>
 </ul>
 </li>
 <li>人脸核实(Face Verification)<ul>
-<li>人脸核实是判断人脸是否是某个人，输出结果为是或者不是，如下图，需要查询输入图片的人物名字是不是SW，因此找到图片库中人物名字为SW的图片，与输入图片进行比较，如果是同一个人，则返回yes，否则返回no。</li>
-<li><img src="/2019/02/21/face-alignment1/verification.png" title="This is an image"></li>
+<li>人脸核实是判断人脸是否是某个人，输出结果为是或者不是，如下图，需要查询输入图片的人物名字是不是SW，因此找到图片库中人物名字为SW的图片，与输入图片进行比较，如果是同一个人，则返回yes，否则返回no。<img src="/2019/02/21/face-alignment1/verification.png" width="400" height="200"></li>
 </ul>
 </li>
 <li>人脸识别(Face Recognition)<ul>
 <li>人脸识别也可以理解为人脸鉴定(face identification)，是指查询输入人脸图片的身份信息，返回的是输入图片的人名。</li>
-<li>如下图，给定输入图片，需要知道这个图片的人是谁，因此对图片库的每一张图片进行对比，如果是同一个人，则返回图片库中对应图片的人名。</li>
-<li><img src="/2019/02/21/face-alignment1/identification.png" title="This is an image">
+<li>如下图，给定输入图片，需要知道这个图片的人是谁，因此对图片库的每一张图片进行对比，如果是同一个人，则返回图片库中对应图片的人名。<img src="/2019/02/21/face-alignment1/identification.png" width="400" height="200">
 </li>
 </ul>
 </li>
 </ul>
 <p>总结一下，现实场景中最常用的是人脸核实和人脸鉴定，但这两个任务都需要先进行人脸检测，然后提取人脸特征，进行特征度量计算，找出特征最相近的人脸。人脸对齐可以辅助人脸核实，表情分析，三维人脸重建等。</p>
-<h2 id="人脸识别-Face-Recognition-行业现状"><a href="#人脸识别-Face-Recognition-行业现状" class="headerlink" title="人脸识别(Face Recognition)行业现状"></a>人脸识别(Face Recognition)行业现状</h2><p>下图是国内人脸识别公司排行，选自 2018《互联网周刊》&amp;eNet研究院选择排行<br><img src="/2019/02/21/face-alignment1/company.png" title="This is an image"><br>下图是四大独角兽(旷世科技，商汤科技，云从科技，依图科技)的细分领域对比表。<br><img src="/2019/02/21/face-alignment1/company1.png" title="This is an image"></p>
+<h2 id="人脸识别-Face-Recognition-行业现状"><a href="#人脸识别-Face-Recognition-行业现状" class="headerlink" title="人脸识别(Face Recognition)行业现状"></a>人脸识别(Face Recognition)行业现状</h2><p>下图是国内人脸识别公司排行，选自 2018《互联网周刊》&amp;eNet研究院选择排行<br><img src="/2019/02/21/face-alignment1/company.png" width="400" height="100"><br>下图是四大独角兽(旷世科技，商汤科技，云从科技，依图科技)的细分领域对比表。<br><img src="/2019/02/21/face-alignment1/company1.png" width="500" height="200"></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
 <li><a href="https://zhuanlan.zhihu.com/p/42968117" target="_blank" rel="noopener">人脸关键点检测综述</a></li>
 <li><a href="https://www.jianshu.com/p/639e3f8b7253" target="_blank" rel="noopener">人脸识别长篇研究</a></li>
@@ -608,7 +810,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-22 11:02:38" itemprop="dateModified" datetime="2019-02-22T11:02:38+08:00">2019-02-22</time>
+                <time title="Modified: 2019-02-25 10:33:36" itemprop="dateModified" datetime="2019-02-25T10:33:36+08:00">2019-02-25</time>
               
             
           </span>
@@ -688,7 +890,7 @@
 <li>发布到github上：<code>hexo d</code></li>
 </ul>
 <p><strong>注意：如果出现无法连接git或找不到git错误，则通过安装<code>hexo-deployer-git</code>来解决，<br>命令为<code>npm install hexo-deployer-git --save</code> ，再重新执行<code>hexo g</code>和<code>hexo d</code></strong></p>
-<h2 id="使用NexT模版"><a href="#使用NexT模版" class="headerlink" title="使用NexT模版"></a>使用NexT模版</h2><p>Hexo有很多漂亮的主题，链接在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">这儿</a>，我选用<a href="https://theme-next.org" target="_blank" rel="noopener">NexT</a>。将<code>NexT</code>clone到blog文件夹下，目录结构为:<br><br><img src="/2019/02/10/hexo-post/hexo-post-2.png" title="This is an image"></p>
+<h2 id="使用NexT模版"><a href="#使用NexT模版" class="headerlink" title="使用NexT模版"></a>使用NexT模版</h2><p>Hexo有很多漂亮的主题，链接在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">这儿</a>，我选用<a href="https://theme-next.org" target="_blank" rel="noopener">NexT</a>。将<code>NexT</code>clone到blog文件夹下，目录结构为:<br><br><img src="/2019/02/10/hexo-post/hexo-post-2.png" width="300" height="100"></p>
 <p>编辑blog文件下的<code>_config.yml</code>，修改<code>theme: next</code><br><br><strong>注意：此时有两个<code>_config.yml</code>配置文件，一个是<code>blog</code>文件夹下的，称为 站点配置文件 ，另一个是<code>next</code>文件夹下的，称为主题配置文件。</strong><br><br>可以根据<a href="https://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">NexT官方教程</a>设置菜单、侧栏、头像等，<strong>注意头像图片大小最好为225*225</strong></p>
 <h2 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h2><ul>
 <li><p>新建文章 <code>hexo new postname</code>，在目录<code>blog/source/_posts</code>下会出现<code>postname.md</code>的markdown文件，初始化为：</p>
@@ -697,11 +899,11 @@
 <li><p>增加标签和类别：</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: post3 // 文章名，修改为自己的文章名</span><br><span class="line">date: 2019-02-11 14:08:21  // 日期</span><br><span class="line">tags:</span><br><span class="line">- your tag </span><br><span class="line">- your tag</span><br><span class="line">categories:</span><br><span class="line">- your categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><strong>注意：添加图片的正确方式</strong> <br><br>修改<code>blog</code>文件夹下的<code>post_asset_folder: true</code>，这样每当新建一个文章时，会在<code>blog/source/_posts</code>生成对应的文件夹，用来存放该文章用到的图片。<br><br>用<code>asset_img</code>来添加图片，可以解决图片无法显示，图片404的问题，图片在本地可以显示但在服务器上无法显示的问题。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img imgname.png This <span class="keyword">is</span> an image \%&#125;</span><br></pre></td></tr></table></figure>
+<li><p><strong>注意：添加图片的正确方式</strong> <br><br>修改<code>blog</code>文件夹下的<code>post_asset_folder: true</code>，这样每当新建一个文章时，会在<code>blog/source/_posts</code>生成对应的文件夹，用来存放该文章用到的图片。<br>用<code>asset_img</code>来添加图片，可以解决图片无法显示，图片404的问题，图片在本地可以显示但在服务器上无法显示的问题。</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img imgname.png width height \%&#125;</span><br></pre></td></tr></table></figure>
+<p>width和height可以指定显示图片的宽和高。<br>更多的插入图片和frame等方法可以参考<a href="https://hexo.io/zh-cn/docs/tag-plugins.html#Image" target="_blank" rel="noopener">Hexo使用官方文档</a>。</p>
 </li>
-<li><p>创建“分类”选项和“标签”选项，参考<a href="https://linlif.github.io/2017/05/27/Hexo使用攻略-添加分类及标签/" target="_blank" rel="noopener">Hexo使用攻略-添加分类及标签</a></p>
-</li>
+<li>创建“分类”选项和“标签”选项，参考<a href="https://linlif.github.io/2017/05/27/Hexo使用攻略-添加分类及标签/" target="_blank" rel="noopener">Hexo使用攻略-添加分类及标签</a></li>
 </ul>
 <p><strong>参考</strong> </p>
 <ul>
@@ -709,6 +911,7 @@
 <li><a href="http://gonghonglou.com/2016/02/03/firstblog/" target="_blank" rel="noopener">Mac上搭建基于GitHub的Hexo博客</a></li>
 <li><a href="https://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">NexT官方教程</a></li>
 <li><a href="https://linlif.github.io/2017/05/27/Hexo使用攻略-添加分类及标签/" target="_blank" rel="noopener">Hexo使用攻略-添加分类及标签</a></li>
+<li><a href="https://hexo.io/zh-cn/docs/tag-plugins.html#Image" target="_blank" rel="noopener">Hexo使用官方文档</a></li>
 </ul>
 
           
@@ -962,7 +1165,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -998,7 +1201,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

@@ -106,7 +106,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/02/10/hexo-post/hexo-post-1.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/10/hexo-post/hexo-post-2.png">
-<meta property="og:updated_time" content="2019-02-22T03:02:38.714Z">
+<meta property="og:updated_time" content="2019-02-25T02:33:36.206Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac下用Hexo搭建博客写文章完整流程以及踩过的坑">
 <meta name="twitter:description" content="Github博客搭建比较流行的是JekyII和Hexo，JekyII直接在github上编辑修改，Hexo是在本地编写并生成网页文件，再上传github。两者都支持markdown语法，网上查了一下发现大都用Hexo，大概是Hexo的模版更好看吧，所以花了几天时间用Hexo和NexT模版搭建了github博客，记录一下流程以及踩过的坑。 Hexo简介、安装Hexo 基于 Node.js 的静态博客">
@@ -403,7 +403,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-22 11:02:38" itemprop="dateModified" datetime="2019-02-22T11:02:38+08:00">2019-02-22</time>
+                <time title="Modified: 2019-02-25 10:33:36" itemprop="dateModified" datetime="2019-02-25T10:33:36+08:00">2019-02-25</time>
               
             
           </span>
@@ -481,7 +481,7 @@
 <li>发布到github上：<code>hexo d</code></li>
 </ul>
 <p><strong>注意：如果出现无法连接git或找不到git错误，则通过安装<code>hexo-deployer-git</code>来解决，<br>命令为<code>npm install hexo-deployer-git --save</code> ，再重新执行<code>hexo g</code>和<code>hexo d</code></strong></p>
-<h2 id="使用NexT模版"><a href="#使用NexT模版" class="headerlink" title="使用NexT模版"></a>使用NexT模版</h2><p>Hexo有很多漂亮的主题，链接在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">这儿</a>，我选用<a href="https://theme-next.org" target="_blank" rel="noopener">NexT</a>。将<code>NexT</code>clone到blog文件夹下，目录结构为:<br><br><img src="/2019/02/10/hexo-post/hexo-post-2.png" title="This is an image"></p>
+<h2 id="使用NexT模版"><a href="#使用NexT模版" class="headerlink" title="使用NexT模版"></a>使用NexT模版</h2><p>Hexo有很多漂亮的主题，链接在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">这儿</a>，我选用<a href="https://theme-next.org" target="_blank" rel="noopener">NexT</a>。将<code>NexT</code>clone到blog文件夹下，目录结构为:<br><br><img src="/2019/02/10/hexo-post/hexo-post-2.png" width="300" height="100"></p>
 <p>编辑blog文件下的<code>_config.yml</code>，修改<code>theme: next</code><br><br><strong>注意：此时有两个<code>_config.yml</code>配置文件，一个是<code>blog</code>文件夹下的，称为 站点配置文件 ，另一个是<code>next</code>文件夹下的，称为主题配置文件。</strong><br><br>可以根据<a href="https://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">NexT官方教程</a>设置菜单、侧栏、头像等，<strong>注意头像图片大小最好为225*225</strong></p>
 <h2 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h2><ul>
 <li><p>新建文章 <code>hexo new postname</code>，在目录<code>blog/source/_posts</code>下会出现<code>postname.md</code>的markdown文件，初始化为：</p>
@@ -490,11 +490,11 @@
 <li><p>增加标签和类别：</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: post3 // 文章名，修改为自己的文章名</span><br><span class="line">date: 2019-02-11 14:08:21  // 日期</span><br><span class="line">tags:</span><br><span class="line">- your tag </span><br><span class="line">- your tag</span><br><span class="line">categories:</span><br><span class="line">- your categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><strong>注意：添加图片的正确方式</strong> <br><br>修改<code>blog</code>文件夹下的<code>post_asset_folder: true</code>，这样每当新建一个文章时，会在<code>blog/source/_posts</code>生成对应的文件夹，用来存放该文章用到的图片。<br><br>用<code>asset_img</code>来添加图片，可以解决图片无法显示，图片404的问题，图片在本地可以显示但在服务器上无法显示的问题。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img imgname.png This <span class="keyword">is</span> an image \%&#125;</span><br></pre></td></tr></table></figure>
+<li><p><strong>注意：添加图片的正确方式</strong> <br><br>修改<code>blog</code>文件夹下的<code>post_asset_folder: true</code>，这样每当新建一个文章时，会在<code>blog/source/_posts</code>生成对应的文件夹，用来存放该文章用到的图片。<br>用<code>asset_img</code>来添加图片，可以解决图片无法显示，图片404的问题，图片在本地可以显示但在服务器上无法显示的问题。</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img imgname.png width height \%&#125;</span><br></pre></td></tr></table></figure>
+<p>width和height可以指定显示图片的宽和高。<br>更多的插入图片和frame等方法可以参考<a href="https://hexo.io/zh-cn/docs/tag-plugins.html#Image" target="_blank" rel="noopener">Hexo使用官方文档</a>。</p>
 </li>
-<li><p>创建“分类”选项和“标签”选项，参考<a href="https://linlif.github.io/2017/05/27/Hexo使用攻略-添加分类及标签/" target="_blank" rel="noopener">Hexo使用攻略-添加分类及标签</a></p>
-</li>
+<li>创建“分类”选项和“标签”选项，参考<a href="https://linlif.github.io/2017/05/27/Hexo使用攻略-添加分类及标签/" target="_blank" rel="noopener">Hexo使用攻略-添加分类及标签</a></li>
 </ul>
 <p><strong>参考</strong> </p>
 <ul>
@@ -502,6 +502,7 @@
 <li><a href="http://gonghonglou.com/2016/02/03/firstblog/" target="_blank" rel="noopener">Mac上搭建基于GitHub的Hexo博客</a></li>
 <li><a href="https://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">NexT官方教程</a></li>
 <li><a href="https://linlif.github.io/2017/05/27/Hexo使用攻略-添加分类及标签/" target="_blank" rel="noopener">Hexo使用攻略-添加分类及标签</a></li>
+<li><a href="https://hexo.io/zh-cn/docs/tag-plugins.html#Image" target="_blank" rel="noopener">Hexo使用官方文档</a></li>
 </ul>
 
       
@@ -623,7 +624,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -659,7 +660,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
