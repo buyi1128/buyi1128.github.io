@@ -96,24 +96,27 @@
 
 
 
-  <meta name="description" content="个人信息硕士(在读)， 南京大学 本科， 四川大学 联系方式xyycutie@163.com buyi1015@gmail.com">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Yuanyuan&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/about/index.html">
+  <meta name="description" content="卷积操作的起源卷积是微积分里的一个术语，指卷积运算。 CNN网络的结构卷积层(Convolutional Layer)池化层(Pooling Layer)正则化层(Normalization Layer)全连接层(Fully-Connected Layer)激活函数(Activation Function)">
+<meta name="keywords" content="deep learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CNN系列总结(一)---基础知识点">
+<meta property="og:url" content="http://yoursite.com/2019/02/26/basicCNN/index.html">
 <meta property="og:site_name" content="Yuanyuan&#39;s blog">
-<meta property="og:description" content="个人信息硕士(在读)， 南京大学 本科， 四川大学 联系方式xyycutie@163.com buyi1015@gmail.com">
+<meta property="og:description" content="卷积操作的起源卷积是微积分里的一个术语，指卷积运算。 CNN网络的结构卷积层(Convolutional Layer)池化层(Pooling Layer)正则化层(Normalization Layer)全连接层(Fully-Connected Layer)激活函数(Activation Function)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-10T08:10:17.930Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/26/basicCNN/conv1.png">
+<meta property="og:updated_time" content="2019-02-27T01:36:42.551Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Yuanyuan&#39;s blog">
-<meta name="twitter:description" content="个人信息硕士(在读)， 南京大学 本科， 四川大学 联系方式xyycutie@163.com buyi1015@gmail.com">
+<meta name="twitter:title" content="CNN系列总结(一)---基础知识点">
+<meta name="twitter:description" content="卷积操作的起源卷积是微积分里的一个术语，指卷积运算。 CNN网络的结构卷积层(Convolutional Layer)池化层(Pooling Layer)正则化层(Normalization Layer)全连接层(Fully-Connected Layer)激活函数(Activation Function)">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/26/basicCNN/conv1.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/about/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/26/basicCNN/">
 
 
 
@@ -123,7 +126,7 @@
   };
 </script>
 
-  <title> | Yuanyuan's blog</title>
+  <title>CNN系列总结(一)---基础知识点 | Yuanyuan's blog</title>
   
 
 
@@ -226,7 +229,7 @@
         
         
           
-          <li class="menu-item menu-item-about menu-item-active">
+          <li class="menu-item menu-item-about">
 
     
     
@@ -319,75 +322,199 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/basicCNN/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuanyuan">
+      <meta itemprop="description" content="天道酬勤">
+      <meta itemprop="image" content="/images/yuanyuan.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuanyuan's blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">
-
-</h1>
-
-<div class="post-meta">
-  
-  
-
-
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <h2 id="个人信息"><a href="#个人信息" class="headerlink" title="个人信息"></a>个人信息</h2><p>硕士(在读)， 南京大学 <br><br>本科， 四川大学</p>
-<h2 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h2><p><a href="mailto:xyycutie@163.com" target="_blank" rel="noopener">xyycutie@163.com</a> <br><br><a href="mailto:buyi1015@gmail.com" target="_blank" rel="noopener">buyi1015@gmail.com</a></p>
+          <h1 class="post-title" itemprop="name headline">CNN系列总结(一)---基础知识点
 
+              
+            
+          </h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-26 20:25:31" itemprop="dateCreated datePublished" datetime="2019-02-26T20:25:31+08:00">2019-02-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-02-27 09:36:42" itemprop="dateModified" datetime="2019-02-27T09:36:42+08:00">2019-02-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/deep-learning/" itemprop="url" rel="index"><span itemprop="name">deep learning</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="卷积操作的起源"><a href="#卷积操作的起源" class="headerlink" title="卷积操作的起源"></a>卷积操作的起源</h2><p>卷积是微积分里的一个术语，指卷积运算。<br><img src="/2019/02/26/basicCNN/conv1.png" width="300" height="200"></p>
+<h2 id="CNN网络的结构"><a href="#CNN网络的结构" class="headerlink" title="CNN网络的结构"></a>CNN网络的结构</h2><h2 id="卷积层-Convolutional-Layer"><a href="#卷积层-Convolutional-Layer" class="headerlink" title="卷积层(Convolutional Layer)"></a>卷积层(Convolutional Layer)</h2><h2 id="池化层-Pooling-Layer"><a href="#池化层-Pooling-Layer" class="headerlink" title="池化层(Pooling Layer)"></a>池化层(Pooling Layer)</h2><h2 id="正则化层-Normalization-Layer"><a href="#正则化层-Normalization-Layer" class="headerlink" title="正则化层(Normalization Layer)"></a>正则化层(Normalization Layer)</h2><h2 id="全连接层-Fully-Connected-Layer"><a href="#全连接层-Fully-Connected-Layer" class="headerlink" title="全连接层(Fully-Connected Layer)"></a>全连接层(Fully-Connected Layer)</h2><h2 id="激活函数-Activation-Function"><a href="#激活函数-Activation-Function" class="headerlink" title="激活函数(Activation Function)"></a>激活函数(Activation Function)</h2>
       
     </div>
-    
-
-
 
     
+
     
     
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/22/face-alignment2/" rel="next" title="人脸对齐系列总结(二) --- 人脸关键点检测综述">
+                <i class="fa fa-chevron-left"></i> 人脸对齐系列总结(二) --- 人脸关键点检测综述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
   </div>
 
 
@@ -518,7 +645,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#个人信息"><span class="nav-number">1.</span> <span class="nav-text">个人信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#联系方式"><span class="nav-number">2.</span> <span class="nav-text">联系方式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积操作的起源"><span class="nav-number">1.</span> <span class="nav-text">卷积操作的起源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CNN网络的结构"><span class="nav-number">2.</span> <span class="nav-text">CNN网络的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积层-Convolutional-Layer"><span class="nav-number">3.</span> <span class="nav-text">卷积层(Convolutional Layer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#池化层-Pooling-Layer"><span class="nav-number">4.</span> <span class="nav-text">池化层(Pooling Layer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则化层-Normalization-Layer"><span class="nav-number">5.</span> <span class="nav-text">正则化层(Normalization Layer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全连接层-Fully-Connected-Layer"><span class="nav-number">6.</span> <span class="nav-text">全连接层(Fully-Connected Layer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#激活函数-Activation-Function"><span class="nav-number">7.</span> <span class="nav-text">激活函数(Activation Function)</span></a></li></ol></div>
             
 
           </div>
