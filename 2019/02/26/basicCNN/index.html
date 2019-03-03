@@ -97,7 +97,7 @@
 
 
   <meta name="description" content="卷积操作的起源卷积是微积分里的一个术语，指卷积运算。在图像处理中，卷积和滤波有很多应用，具体参考图像卷积与滤波的一些知识点。下图是卷积操作，Input是输入图片的像素矩阵，kernel是卷积核，选取一个滑动窗口，大小和卷积核一样，滑动窗口和卷积核进行点乘，得到的和作为输出像素值。CNN网络里的卷积核类似图像处理的卷积核(滤波器)，图像处理中的滤波器是事先定义好的，每个滤波器都有特定的功能(图像锐化">
-<meta name="keywords" content="deep learning">
+<meta name="keywords" content="deep learning,CNN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CNN系列总结(一)---基础知识点">
 <meta property="og:url" content="http://yoursite.com/2019/02/26/basicCNN/index.html">
@@ -105,7 +105,6 @@
 <meta property="og:description" content="卷积操作的起源卷积是微积分里的一个术语，指卷积运算。在图像处理中，卷积和滤波有很多应用，具体参考图像卷积与滤波的一些知识点。下图是卷积操作，Input是输入图片的像素矩阵，kernel是卷积核，选取一个滑动窗口，大小和卷积核一样，滑动窗口和卷积核进行点乘，得到的和作为输出像素值。CNN网络里的卷积核类似图像处理的卷积核(滤波器)，图像处理中的滤波器是事先定义好的，每个滤波器都有特定的功能(图像锐化">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/02/26/basicCNN/conv1.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/26/basicCNN/conv3.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/26/basicCNN/conv5.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/26/basicCNN/conv4.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/26/basicCNN/conv6.png">
@@ -113,8 +112,11 @@
 <meta property="og:image" content="http://yoursite.com/2019/02/26/basicCNN/conv7.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/26/basicCNN/conv8.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/26/basicCNN/convdemo.gif">
+<meta property="og:image" content="http://yoursite.com/2019/02/26/basicCNN/deconv1.gif">
 <meta property="og:image" content="http://yoursite.com/2019/02/26/basicCNN/pool1.png">
-<meta property="og:updated_time" content="2019-02-28T03:32:48.910Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/26/basicCNN/fc1.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/26/basicCNN/conv3.png">
+<meta property="og:updated_time" content="2019-03-03T03:56:06.580Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CNN系列总结(一)---基础知识点">
 <meta name="twitter:description" content="卷积操作的起源卷积是微积分里的一个术语，指卷积运算。在图像处理中，卷积和滤波有很多应用，具体参考图像卷积与滤波的一些知识点。下图是卷积操作，Input是输入图片的像素矩阵，kernel是卷积核，选取一个滑动窗口，大小和卷积核一样，滑动窗口和卷积核进行点乘，得到的和作为输出像素值。CNN网络里的卷积核类似图像处理的卷积核(滤波器)，图像处理中的滤波器是事先定义好的，每个滤波器都有特定的功能(图像锐化">
@@ -411,7 +413,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-02-28 11:32:48" itemprop="dateModified" datetime="2019-02-28T11:32:48+08:00">2019-02-28</time>
+                <time title="Modified: 2019-03-03 11:56:06" itemprop="dateModified" datetime="2019-03-03T11:56:06+08:00">2019-03-03</time>
               
             
           </span>
@@ -465,7 +467,6 @@
       
         <h2 id="卷积操作的起源"><a href="#卷积操作的起源" class="headerlink" title="卷积操作的起源"></a>卷积操作的起源</h2><p>卷积是微积分里的一个术语，指卷积运算。在图像处理中，卷积和滤波有很多应用，具体参考<a href="https://blog.csdn.net/zouxy09/article/details/49080029" target="_blank" rel="noopener">图像卷积与滤波的一些知识点</a>。下图是卷积操作，Input是输入图片的像素矩阵，kernel是卷积核，选取一个滑动窗口，大小和卷积核一样，滑动窗口和卷积核进行点乘，得到的和作为输出像素值。CNN网络里的卷积核类似图像处理的卷积核(滤波器)，图像处理中的滤波器是事先定义好的，每个滤波器都有特定的功能(图像锐化、检测边缘等)。CNN网络利用神经网络的反向传播功能，通过损失函数来更新滤波器的值，使得滤波器能区分不同输入图像的共同点和不同点，对输入图片进行分类。</p>
 <img src="/2019/02/26/basicCNN/conv1.png" width="300" height="200">
-<h2 id="CNN网络的结构"><a href="#CNN网络的结构" class="headerlink" title="CNN网络的结构"></a>CNN网络的结构</h2><p>CNN网络结构一般包含卷积层、池化层、全连接层、激活函数、反向传播。<br><img src="/2019/02/26/basicCNN/conv3.png" width="700" height="400"></p>
 <h2 id="卷积层-Convolutional-Layer"><a href="#卷积层-Convolutional-Layer" class="headerlink" title="卷积层(Convolutional Layer)"></a>卷积层(Convolutional Layer)</h2><p>举例来说，CNN网络在前向传播的时候，让每个滤波器(卷积核)都在输入数据的宽度和高度上滑动（更精确地说是卷积），然后计算整个滤波器和输入数据任一处的内积。当滤波器沿着输入数据的宽度和高度滑过后，滤波器与滑动窗口进行点乘，点乘结果经过激活函数(常用Relu)之后，会生成一个2维的激活图（activation map），激活图给出了在每个空间位置处滤波器的反应。网络会让滤波器学习到当它看到某些类型的视觉特征时就激活，具体的视觉特征可能是某些方位上的边界，或者在第一层上某些颜色的斑点，甚至可以是网络更高层上的蜂巢状或者车轮状图案。<br>卷积核直观上可以理解为具有学习功能的特征提取工具，提取目标物体的突出特征。</p>
 <p>一般输入图像表示为(w x h x c)的矩阵，w和h表示输入图像的宽和高，c表示输入图像维度，如果是灰度图像，则c=1，如果是RGB图像，则c=3。在CNN网络里，输入图像一般有两种处理方式，一种是全转换为RGB图像，如果是灰度图像，则将二维矩阵(w x h)复制3次，变成(w x h x 3)；另一种是全转换为二维的灰度图像，像素值在0～255之间。</p>
 <h3 id="卷积层参数"><a href="#卷积层参数" class="headerlink" title="卷积层参数"></a><strong>卷积层参数</strong></h3><ul>
@@ -510,15 +511,59 @@
 </li>
 <li>4.<strong>卷积操作通常后面接的是ReLU层，对激活图中的每个元素做激活函数运算。</strong></li>
 </ul>
+<h2 id="反卷积-Deconvolution"><a href="#反卷积-Deconvolution" class="headerlink" title="反卷积(Deconvolution)"></a>反卷积(Deconvolution)</h2><p>反卷积，它有这几个比较熟悉的名字，例如转置卷积、上采样、空洞卷积、微步卷积，但我们认为，最直接的就是反卷积=上采样=（转置卷积+微步卷积）⊆ 空洞卷积=一般意义上的广义卷积（包含上采样和下采样）。<br>如下图，输入feature map尺寸是 2x2，经过转置卷积后，尺寸是 4x4。<br><img src="/2019/02/26/basicCNN/deconv1.gif" width="400" height="600"></p>
+<p>Deconvolution大致可以分为以下几个方面：</p>
+<ul>
+<li>(1）unsupervised learning，其实就是covolutional sparse coding[1][2]：这里的deconv只是观念上和传统的conv反向，传统的conv是从图片生成feature map，而deconv是用unsupervised的方法找到一组kernel和feature map，让它们重建图片。</li>
+<li>(2) CNN可视化[3]：通过deconv将CNN中conv得到的feature map还原到像素空间，以观察特定的feature map对哪些pattern的图片敏感，这里的deconv其实不是conv的可逆运算，只是conv的transpose，所以tensorflow里一般取名叫transpose_conv。</li>
+<li>(3) upsampling[4][5]：在pixel-wise prediction比如image segmentation[4]以及image generation[5]中，由于需要做原始图片尺寸空间的预测，而卷积由于stride往往会降低图片size， 所以往往需要通过upsampling的方法来还原到原始图片尺寸，deconv就充当了一个upsampling的角色。</li>
+</ul>
+<blockquote>
+<p>[1] Zeiler M D, Krishnan D, Taylor G W, et<br>al. Deconvolutional networks[C]. Computer Vision and Pattern Recognition, 2010.<br>[2] Zeiler M D, Taylor G W, Fergus R, etal. Adaptive deconvolutional networks for mid and high level featurelearning[C]. International Conference on Computer Vision, 2011.<br>[3] Zeiler M D, Fergus R. Visualizing and<br>Understanding Convolutional Networks[C]. European Conference on Computer<br>Vision, 2013.<br>[4] Long J, Shelhamer E, Darrell T, et al.Fully convolutional networks for semantic segmentation[C]. Computer Vision andPattern Recognition, 2015.<br>[5] Unsupervised Representation Learning<br>with Deep Convolutional Generative Adversarial Networks</p>
+</blockquote>
 <h2 id="池化层-Pooling-Layer"><a href="#池化层-Pooling-Layer" class="headerlink" title="池化层(Pooling Layer)"></a>池化层(Pooling Layer)</h2><p>Pooling Layer也叫汇聚层，通常每个卷积层之后会紧跟Relu，激活需要学习的特征，连续的卷积层(包含Relu)之后，会插入一个池化层，池化层的作用是降维，主要是降低输出数据的空间尺寸(不改变深度)，这样也能减少网络的参数量，也能有效控制过拟合。池化层一般用一个2x2的滤波器，步长为2进行卷积，常见的操作有对2x2(滤波器对应的输入数据块)的数据取最大值、取平均值等。<br>池化层在输入数据体的每个深度切片上，独立地对其进行空间上的降采样。下图中，左边：输入数据体尺寸[224x224x64]被降采样到了[112x112x64]，采取的滤波器尺寸是2，步长为2，而深度不变。右边：最常用的降采样操作是取最大值，也就是最大池化，这里步长为2，每个取最大值操作是从4个数字中选取（即2x2的方块区域中）。<br><img src="/2019/02/26/basicCNN/pool1.png" width="700" height="500"></p>
 <ul>
-<li><strong>池化层的反向传播</strong>：$max(x, y)$的反向传播可以简单理解为将梯度只沿最大的数回传，因此在向前传播经过池化层的时候，会把池中最大元素的索引记录下来，这样在反向传播的时候梯度的路由就很高效。</li>
-<li><strong>不使用池化层</strong>：</li>
+<li><strong>池化层的反向传播</strong>：max(x, y) 的反向传播可以简单理解为将梯度只沿最大的数回传，因此在向前传播经过池化层的时候，会把池中最大元素的索引记录下来，这样在反向传播的时候梯度的路由就很高效。</li>
+<li><strong>不使用池化层</strong>：池化层不是必须的，目前有一些方法可以替代池化层，比如卷积层中使用更大的步长来降低数据体的尺寸。</li>
 </ul>
-<h2 id="正则化层-Normalization-Layer"><a href="#正则化层-Normalization-Layer" class="headerlink" title="正则化层(Normalization Layer)"></a>正则化层(Normalization Layer)</h2><h2 id="全连接层-Fully-Connected-Layer"><a href="#全连接层-Fully-Connected-Layer" class="headerlink" title="全连接层(Fully-Connected Layer)"></a>全连接层(Fully-Connected Layer)</h2><h2 id="激活函数-Activation-Function"><a href="#激活函数-Activation-Function" class="headerlink" title="激活函数(Activation Function)"></a>激活函数(Activation Function)</h2><h2 id="反向传播-Back-Propogation"><a href="#反向传播-Back-Propogation" class="headerlink" title="反向传播(Back Propogation)"></a>反向传播(Back Propogation)</h2><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<h2 id="全连接层-Fully-Connected-Layer"><a href="#全连接层-Fully-Connected-Layer" class="headerlink" title="全连接层(Fully-Connected Layer)"></a>全连接层(Fully-Connected Layer)</h2><p>全连接层和普通的神经网络一样。<br><img src="/2019/02/26/basicCNN/fc1.png" width="500" height="300"><br>全连接层的作用是将卷积提取的特征映射到每一类，方便损失函数打分。全连接层的输入是前一层的所有神经元个数，输出是用户自定义，一般最后一层全连接层的输出个数是需要检测物体的类别数(对于分类网络)。</p>
+<h3 id="全连接层转化为卷积层"><a href="#全连接层转化为卷积层" class="headerlink" title="全连接层转化为卷积层"></a><strong>全连接层转化为卷积层</strong></h3><ul>
+<li><strong>全连接层与卷积层的区别</strong><ul>
+<li>1.卷积层的输入是输入矩阵的一块区域，全连接层的输入必须是一个列向量；</li>
+<li>2.卷积层是局部连接，全连接网络使用了图像的全局信息；<br>全连接层和卷积层的相同点都是神经元进行点积运算。</li>
+</ul>
+</li>
+<li><p><strong>卷积层代替全连接层的好处</strong>：如果网络使用了全连接层，那么输入数据的尺寸一般是固定(因为全连接层的权重矩阵是固定的，所以最后输入全连接层的feature map的尺寸也是固定的)。但是如果用卷积层代替全连接层，就可以输入任意尺寸的数据了。</p>
+</li>
+<li><p><strong>如何转化</strong></p>
+<ul>
+<li>最初是Jonathan Long发表的《Fully Convolutional Networks for Semantic Segmentation》论文，提出了FCN（全卷积网络），用于图像语义分割。</li>
+<li>任何全连接层都可以被转化为卷积层。比如，一个 K=4096 的全连接层，输入数据体的尺寸是 7x7x512，这个全连接层可以被等效地看做一个卷积核尺寸 F=7, 零填充 P=0, 步长 S=1, 卷积核数量 K=4096的卷积层。换句话说，就是将滤波器的尺寸设置为和输入数据体的尺寸一致了。因为只有一个单独的深度列覆盖并滑过输入数据体，所以输出将变成 1x1x4096，这个结果就和使用初始的那个全连接层一样了。</li>
+<li>举例说明，如果一幅图片经过卷积网络之后，feature map为7x7x4096，类别有10类，那么如果这里接full connection层它的参数数量为 7x7x4096x10，但是我们可以换一种思路，下一层用卷积层实现同样功能，那么就是需要10个7*7的filter，filter的深度为4096，这样我们会发现参数的数量相同，并且计算的时间复杂度以及空间复杂度等等都没有区别，那么为什么还要用卷积层呢？<br>这主要是为了解决当图片中有多个类别物体的情况下，某一个物体最后映射的feature map是 7x7，但是这幅图中还有其他物体，这样最后我们不仅仅需要得到一个一维向量 1x1x10，事实上我们需要的假如说是 6x6x10，我们需要对 6x6 的每个网格都做分类，那么这时候如果用full connect层，需要经过多次全连 接层，才能得到 6x6x10 个score feature，而如果用卷积层，就可以通过利用滑动窗口，一次前向传播就得到 6x6x10 的score feature，这样无疑是更加高效的，因为这样只需要计算每个位置卷积不同的地方即可，事实上不同的地方很小。</li>
+</ul>
+</li>
+</ul>
+<h2 id="CNN网络的结构"><a href="#CNN网络的结构" class="headerlink" title="CNN网络的结构"></a>CNN网络的结构</h2><p>CNN网络结构一般包含卷积层、池化层、全连接层、激活函数、反向传播。<br><img src="/2019/02/26/basicCNN/conv3.png" width="700" height="400"><br>CNN网络最常见的形式就是将一些卷积层和ReLU层放在一起，其后紧跟池化层，然后重复如此直到图像在空间上被缩小到一个足够小的尺寸，在某个地方过渡成成全连接层也较为常见。最后的全连接层得到输出，比如分类评分等。换句话说，最常见的CNN网络结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INPUT -&gt; [[CONV -&gt; RELU]\*N -&gt; POOL?]\*M -&gt; [FC -&gt; RELU]\*K -&gt; FC</span><br></pre></td></tr></table></figure></p>
+<p>其中 * 指的是重复次数，POOL? 指的是一个可选的汇聚层。其中N &gt;=0,通常N&lt;=3,M&gt;=0,K&gt;=0,通常K&lt;3。例如，下面是一些常见的网络结构规律：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INPUT -&gt; FC,实现一个线性分类器，此处N = M = K = 0。</span><br><span class="line">INPUT -&gt; CONV -&gt; RELU -&gt; FC</span><br><span class="line">INPUT -&gt; [CONV -&gt; RELU -&gt; POOL]*2 -&gt; FC -&gt; RELU -&gt; FC。此处在每个池化层之间有一个卷积层。</span><br><span class="line">INPUT -&gt; [CONV -&gt; RELU -&gt; CONV -&gt; RELU -&gt; POOL]*3 -&gt; [FC -&gt; RELU]*2 -&gt; FC。此处每个池化层前有两个卷积层，这个思路适用于更大更深的网络，因为在执行具有破坏性的池化操作前，多重的卷积层可以从输入数据中学习到更多的复杂特征。</span><br></pre></td></tr></table></figure></p>
+<p><strong>几个小滤波器卷积层的组合比一个大滤波器卷积层好：</strong> 假设你一层一层地重叠了3个3x3的卷积层（层与层之间有非线性激活函数）。在这个排列下，第一个卷积层中的每个神经元都对输入数据体有一个3x3的视野。第二个卷积层上的神经元对第一个卷积层有一个3x3的视野，也就是对输入数据体有5x5的视野。同样，在第三个卷积层上的神经元对第二个卷积层有3x3的视野，也就是对输入数据体有7x7的视野。假设不采用这3个3x3的卷积层，二是使用一个单独的有7x7的感受野的卷积层，那么所有神经元的感受野也是7x7，但是就有一些缺点。首先，多个卷积层与非线性的激活层交替的结构，比单一卷积层的结构更能提取出深层的更好的特征。其次，假设所有的数据有C个通道，那么单独的7x7卷积层将会包含 Cx(7x7xC)=49C^2 个参数，而3个3x3的卷积层的组合仅有 3x(Cx(3x3xC))=27C^2 个参数。直观说来，最好选择带有小滤波器的卷积层组合，而不是用一个带有大的滤波器的卷积层。前者可以表达出输入数据中更多个强力特征，使用的参数也更少。唯一的不足是，在进行反向传播时，中间的卷积层可能会导致占用更多的内存。</p>
+<h2 id="CNN网络耗费的内存资源"><a href="#CNN网络耗费的内存资源" class="headerlink" title="CNN网络耗费的内存资源"></a>CNN网络耗费的内存资源</h2><p>在构建CNN网络结构时，最大的瓶颈是内存瓶颈。大部分现代GPU的内存是3/4/6GB，最好的GPU大约有12GB的内存。要注意三种内存占用来源：</p>
+<ul>
+<li><strong>来自中间数据体尺寸</strong>：卷积神经网络中的每一层中都有激活数据体的原始数值，以及损失函数对它们的梯度（和激活数据体尺寸一致）。通常，大部分激活数据都是在网络中靠前的层中（比如第一个卷积层）。在训练时，这些数据需要放在内存中，因为反向传播的时候还会用到。但是在测试时可以聪明点：让网络在测试运行时候每层都只存储当前的激活数据，然后丢弃前面层的激活数据，这样就能减少巨大的激活数据量。</li>
+<li><strong>来自参数尺寸</strong>：即整个网络的参数的数量，在反向传播时它们的梯度值，以及使用momentum、Adagrad或RMSProp等方法进行最优化时的每一步计算缓存。因此，存储参数向量的内存通常需要在参数向量的容量基础上乘以3或者更多。</li>
+<li><strong>各种零散的内存占用</strong>，比如成批的训练数据，扩充的数据等等。</li>
+</ul>
+<p>一旦对于所有这些数值的数量有了一个大略估计（包含激活数据，梯度和各种杂项），数量应该转化为以GB为计量单位。把这个值乘以4，得到原始的字节数（因为每个浮点数占用4个字节，如果是双精度浮点数那就是占用8个字节），然后多次除以1024分别得到占用内存的KB，MB，最后是GB计量。如果你的网络工作得不好，一个常用的方法是降低批尺寸（batch size），因为绝大多数的内存都是被激活数据消耗掉了。</p>
+<p><strong>下一篇 <a href="">CNN系列总结(二)—经典模型结构</a> </strong></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
 <li><a href="https://zhuanlan.zhihu.com/p/22038289?refer=intelligentunit" target="_blank" rel="noopener">CS231n课程笔记翻译：卷积神经网络笔记</a></li>
 <li><a href="https://blog.csdn.net/sscc_learning/article/details/79814146" target="_blank" rel="noopener">【CNN】理解卷积神经网络中的通道 channel</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/29119239" target="_blank" rel="noopener">CNN中卷积层的计算细节</a></li>
+<li><a href="http://www.cnblogs.com/gujianhan/p/6030639.html" target="_blank" rel="noopener">全卷积网络 FCN 详解</a></li>
+<li><a href="https://blog.csdn.net/zxyhhjs2017/article/details/78605283" target="_blank" rel="noopener">深度学习—之卷积层与全连接层的区别</a></li>
+<li><a href="https://blog.csdn.net/NNNNNNNNNNNNY/article/details/70194432" target="_blank" rel="noopener">为什么使用卷积层替代CNN末尾的全连接层</a></li>
+<li><a href="https://www.zhihu.com/question/43609045" target="_blank" rel="noopener">如何理解深度学习中的deconvolution networks？</a></li>
+<li><a href="https://blog.csdn.net/lanmengyiyu/article/details/80719373" target="_blank" rel="noopener">全链接层转换为卷积层</a></li>
+<li></li>
 </ul>
 
       
@@ -545,6 +590,8 @@
           
             <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
           
+            <a href="/tags/CNN/" rel="tag"># CNN</a>
+          
         </div>
       
 
@@ -565,6 +612,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/03/basicCNN2/" rel="prev" title="CNN系列总结(二)---经典模型结构">
+                CNN系列总结(二)---经典模型结构 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -636,7 +687,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -674,7 +725,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -710,7 +763,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积操作的起源"><span class="nav-number">1.</span> <span class="nav-text">卷积操作的起源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CNN网络的结构"><span class="nav-number">2.</span> <span class="nav-text">CNN网络的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积层-Convolutional-Layer"><span class="nav-number">3.</span> <span class="nav-text">卷积层(Convolutional Layer)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积层参数"><span class="nav-number">3.1.</span> <span class="nav-text">卷积层参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积层的计算细节"><span class="nav-number">3.2.</span> <span class="nav-text">卷积层的计算细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积层特点"><span class="nav-number">3.3.</span> <span class="nav-text">卷积层特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#池化层-Pooling-Layer"><span class="nav-number">4.</span> <span class="nav-text">池化层(Pooling Layer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则化层-Normalization-Layer"><span class="nav-number">5.</span> <span class="nav-text">正则化层(Normalization Layer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全连接层-Fully-Connected-Layer"><span class="nav-number">6.</span> <span class="nav-text">全连接层(Fully-Connected Layer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#激活函数-Activation-Function"><span class="nav-number">7.</span> <span class="nav-text">激活函数(Activation Function)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反向传播-Back-Propogation"><span class="nav-number">8.</span> <span class="nav-text">反向传播(Back Propogation)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">9.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积操作的起源"><span class="nav-number">1.</span> <span class="nav-text">卷积操作的起源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积层-Convolutional-Layer"><span class="nav-number">2.</span> <span class="nav-text">卷积层(Convolutional Layer)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积层参数"><span class="nav-number">2.1.</span> <span class="nav-text">卷积层参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积层的计算细节"><span class="nav-number">2.2.</span> <span class="nav-text">卷积层的计算细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积层特点"><span class="nav-number">2.3.</span> <span class="nav-text">卷积层特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反卷积-Deconvolution"><span class="nav-number">3.</span> <span class="nav-text">反卷积(Deconvolution)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#池化层-Pooling-Layer"><span class="nav-number">4.</span> <span class="nav-text">池化层(Pooling Layer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全连接层-Fully-Connected-Layer"><span class="nav-number">5.</span> <span class="nav-text">全连接层(Fully-Connected Layer)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全连接层转化为卷积层"><span class="nav-number">5.1.</span> <span class="nav-text">全连接层转化为卷积层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CNN网络的结构"><span class="nav-number">6.</span> <span class="nav-text">CNN网络的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CNN网络耗费的内存资源"><span class="nav-number">7.</span> <span class="nav-text">CNN网络耗费的内存资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">8.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
