@@ -560,8 +560,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="CNN网络的结构"><a href="#CNN网络的结构" class="headerlink" title="CNN网络的结构"></a>CNN网络的结构</h2><p>CNN网络结构一般包含卷积层、池化层、全连接层、激活函数、反向传播。<br><img src="/2019/02/26/basicCNN/conv3.png" width="700" height="400"><br>CNN网络最常见的形式就是将一些卷积层和ReLU层放在一起，其后紧跟池化层，然后重复如此直到图像在空间上被缩小到一个足够小的尺寸，在某个地方过渡成成全连接层也较为常见。最后的全连接层得到输出，比如分类评分等。换句话说，最常见的CNN网络结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INPUT -&gt; [[CONV -&gt; RELU]\*N -&gt; POOL?]\*M -&gt; [FC -&gt; RELU]\*K -&gt; FC</span><br></pre></td></tr></table></figure></p>
-<p>其中 * 指的是重复次数，POOL? 指的是一个可选的汇聚层。其中N &gt;=0,通常N&lt;=3,M&gt;=0,K&gt;=0,通常K&lt;3。例如，下面是一些常见的网络结构规律：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INPUT -&gt; FC,实现一个线性分类器，此处N = M = K = 0。</span><br><span class="line">INPUT -&gt; CONV -&gt; RELU -&gt; FC</span><br><span class="line">INPUT -&gt; [CONV -&gt; RELU -&gt; POOL]*2 -&gt; FC -&gt; RELU -&gt; FC。此处在每个池化层之间有一个卷积层。</span><br><span class="line">INPUT -&gt; [CONV -&gt; RELU -&gt; CONV -&gt; RELU -&gt; POOL]*3 -&gt; [FC -&gt; RELU]*2 -&gt; FC。此处每个池化层前有两个卷积层，这个思路适用于更大更深的网络，因为在执行具有破坏性的池化操作前，多重的卷积层可以从输入数据中学习到更多的复杂特征。</span><br></pre></td></tr></table></figure></p>
+<h2 id="CNN网络的结构"><a href="#CNN网络的结构" class="headerlink" title="CNN网络的结构"></a>CNN网络的结构</h2><p>CNN网络结构一般包含卷积层、池化层、全连接层、激活函数、反向传播。<br><img src="/2019/02/26/basicCNN/conv3.png" width="700" height="400"><br>CNN网络最常见的形式就是将一些卷积层和ReLU层放在一起，其后紧跟池化层，然后重复如此直到图像在空间上被缩小到一个足够小的尺寸，在某个地方过渡成成全连接层也较为常见。最后的全连接层得到输出，比如分类评分等。换句话说，最常见的CNN网络结构如下：<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INPUT<span class="function"> -&gt;</span> [[CONV<span class="function"> -&gt;</span> RELU]<span class="string">\*N</span> <span class="function">-&gt;</span> POOL?]<span class="string">\*M</span> <span class="function">-&gt;</span> [FC<span class="function"> -&gt;</span> RELU]<span class="string">\*K</span> <span class="function">-&gt;</span> FC</span><br></pre></td></tr></table></figure></p>
+<p>其中 * 指的是重复次数，POOL? 指的是一个可选的汇聚层。其中N &gt;=0,通常N&lt;=3,M&gt;=0,K&gt;=0,通常K&lt;3。例如，下面是一些常见的网络结构规律：<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INPUT -&gt; FC,实现一个线性分类器，此处N = M = K = <span class="number">0</span>。</span><br><span class="line">INPUT -&gt; CONV -&gt; RELU -&gt; FC</span><br><span class="line">INPUT -&gt; [CONV -&gt; RELU -&gt; POOL]*<span class="number">2</span> -&gt; FC -&gt; RELU -&gt; FC。此处在每个池化层之间有一个卷积层。</span><br><span class="line">INPUT -&gt; [CONV -&gt; RELU -&gt; CONV -&gt; RELU -&gt; POOL]*<span class="number">3</span> -&gt; [FC -&gt; RELU]*<span class="number">2</span> -&gt; FC。此处每个池化层前有两个卷积层，这个思路适用于更大更深的网络，因为在执行具有破坏性的池化操作前，多重的卷积层可以从输入数据中学习到更多的复杂特征。</span><br></pre></td></tr></table></figure></p>
 <p><strong>几个小滤波器卷积层的组合比一个大滤波器卷积层好：</strong> 假设你一层一层地重叠了3个3x3的卷积层（层与层之间有非线性激活函数）。在这个排列下，第一个卷积层中的每个神经元都对输入数据体有一个3x3的视野。第二个卷积层上的神经元对第一个卷积层有一个3x3的视野，也就是对输入数据体有5x5的视野。同样，在第三个卷积层上的神经元对第二个卷积层有3x3的视野，也就是对输入数据体有7x7的视野。假设不采用这3个3x3的卷积层，二是使用一个单独的有7x7的感受野的卷积层，那么所有神经元的感受野也是7x7，但是就有一些缺点。首先，多个卷积层与非线性的激活层交替的结构，比单一卷积层的结构更能提取出深层的更好的特征。其次，假设所有的数据有C个通道，那么单独的7x7卷积层将会包含 Cx(7x7xC)=49C^2 个参数，而3个3x3的卷积层的组合仅有 3x(Cx(3x3xC))=27C^2 个参数。直观说来，最好选择带有小滤波器的卷积层组合，而不是用一个带有大的滤波器的卷积层。前者可以表达出输入数据中更多个强力特征，使用的参数也更少。唯一的不足是，在进行反向传播时，中间的卷积层可能会导致占用更多的内存。</p>
 <h2 id="CNN网络耗费的内存资源"><a href="#CNN网络耗费的内存资源" class="headerlink" title="CNN网络耗费的内存资源"></a>CNN网络耗费的内存资源</h2><p>在构建CNN网络结构时，最大的瓶颈是内存瓶颈。大部分现代GPU的内存是3/4/6GB，最好的GPU大约有12GB的内存。要注意三种内存占用来源：</p>
 <ul>
@@ -627,8 +627,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/03/basicCNN2/" rel="prev" title="CNN系列总结(二)---经典模型结构">
-                CNN系列总结(二)---经典模型结构 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/03/basicCNN2/" rel="prev" title="CNN系列总结(三)---经典模型结构">
+                CNN系列总结(三)---经典模型结构 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -701,7 +701,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -718,7 +718,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -741,7 +743,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

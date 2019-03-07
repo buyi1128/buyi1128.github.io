@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="数据预处理零中心化、归一化关于数据预处理我们有3个常用的符号，数据矩阵X，假设其尺寸是[N x D]（N是数据样本的数量，D是数据的维度）。均值减法（Mean subtraction）是预处理最常用的形式。它对数据中每个独立特征减去平均值，从几何上可以理解为在每个维度上都将数据云的中心都迁移到原点。在numpy中，该操作可以通过代码X -= np.mean(X, axis=0)实现。而对于图像，更">
+<meta name="keywords" content="deep learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CNN系列总结(二)---数据预处理、激活函数、梯度、损失函数、优化方法、训练技巧">
+<meta property="og:url" content="http://yoursite.com/2019/03/06/activate/index.html">
+<meta property="og:site_name" content="Yuanyuan&#39;s blog">
+<meta property="og:description" content="数据预处理零中心化、归一化关于数据预处理我们有3个常用的符号，数据矩阵X，假设其尺寸是[N x D]（N是数据样本的数量，D是数据的维度）。均值减法（Mean subtraction）是预处理最常用的形式。它对数据中每个独立特征减去平均值，从几何上可以理解为在每个维度上都将数据云的中心都迁移到原点。在numpy中，该操作可以通过代码X -= np.mean(X, axis=0)实现。而对于图像，更">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/data.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/pca.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/initialise.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/initia2.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/conclusion.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/sigmoid1.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/sigmoid3.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/sigmoid2.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/picture1.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/picture2.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/pictureRelu.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/prelu.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/elu.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/maxout.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/gradient1.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/gradient2.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/regular1.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/l2.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/activate/l1.png">
+<meta property="og:updated_time" content="2019-03-07T14:44:15.465Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CNN系列总结(二)---数据预处理、激活函数、梯度、损失函数、优化方法、训练技巧">
+<meta name="twitter:description" content="数据预处理零中心化、归一化关于数据预处理我们有3个常用的符号，数据矩阵X，假设其尺寸是[N x D]（N是数据样本的数量，D是数据的维度）。均值减法（Mean subtraction）是预处理最常用的形式。它对数据中每个独立特征减去平均值，从几何上可以理解为在每个维度上都将数据云的中心都迁移到原点。在numpy中，该操作可以通过代码X -= np.mean(X, axis=0)实现。而对于图像，更">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/06/activate/data.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/06/activate/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CNN系列总结(二)---数据预处理、激活函数、梯度、损失函数、优化方法、训练技巧 | Yuanyuan's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Yuanyuan's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-about"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-categories"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archives"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/activate/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuanyuan">
+      <meta itemprop="description" content="天道酬勤">
+      <meta itemprop="image" content="/images/yuanyuan.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuanyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CNN系列总结(二)---数据预处理、激活函数、梯度、损失函数、优化方法、训练技巧
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          <span class="post-letters-count">
+            &nbsp; | &nbsp;
+            <span>5.9k 字</span>
+            &nbsp; | &nbsp;
+            <span>20 min</span>
+          </span>
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-06 19:24:36" itemprop="dateCreated datePublished" datetime="2019-03-06T19:24:36+08:00">2019-03-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-07 22:44:15" itemprop="dateModified" datetime="2019-03-07T22:44:15+08:00">2019-03-07</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/deep-learning/" itemprop="url" rel="index"><span itemprop="name">deep learning</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><h3 id="零中心化、归一化"><a href="#零中心化、归一化" class="headerlink" title="零中心化、归一化"></a>零中心化、归一化</h3><p>关于数据预处理我们有3个常用的符号，数据矩阵<strong>X</strong>，假设其尺寸是<strong>[N x D]</strong>（<strong>N</strong>是数据样本的数量，<strong>D</strong>是数据的维度）。<br><strong>均值减法</strong>（Mean subtraction）是预处理最常用的形式。它对数据中每个独立特征减去平均值，从几何上可以理解为在每个维度上都将数据云的中心都迁移到原点。在numpy中，该操作可以通过代码<br>X -= np.mean(X, axis=0)实现。而对于图像，更常用的是对所有像素都减去一个值，可以用<br>X -= np.mean(X)实现，也可以在3个颜色通道上分别操作。<br><strong>归一化</strong>（Normalization）是指将数据的所有维度都归一化，使其数值范围都近似相等。有两种常用方法可以实现归一化。<br>第一种是先对数据做零中心化（zero-centered）处理，然后每个维度都除以其标准差，实现代码为<strong>X /= np.std(X, axis=0)</strong>。<br>第二种方法是对每个维度都做归一化，使得每个维度的最大和最小值是1和-1。<strong>这个预处理操作只有在确信不同的输入特征有不同的数值范围（或计量单位）时才有意义</strong>，但要注意预处理操作的重要性几乎等同于学习算法本身。在图像处理中，由于像素的数值范围几乎是一致的（都在0-255之间），所以进行这个额外的预处理步骤并不是很必要。<br><strong>一般数据预处理流程</strong>：如下图，左边：原始的2维输入数据。中间：在每个维度上都减去平均值后得到零中心化数据，现在数据云是以原点为中心的。右边：每个维度都除以其标准差来调整其数值范围。红色的线指出了数据各维度的数值范围，在中间的零中心化数据的数值范围不同，但在右边归一化数据中数值范围相同。<br><img src="/2019/03/06/activate/data.png" width="600" height="400"></p>
+<h3 id="PCA和白化（Whitening）"><a href="#PCA和白化（Whitening）" class="headerlink" title="PCA和白化（Whitening）"></a>PCA和白化（Whitening）</h3><p>PCA和白化（Whitening）是另一种预处理形式。在这种处理中，先对数据进行零中心化处理，然后计算协方差矩阵，它展示了数据中的相关性结构。<br><strong>PCA</strong><br>数据协方差矩阵的第$ (i, j) $个元素是数据第$i$个和第$j$个维度的协方差。具体来说，该矩阵的对角线上的元素是方差。还有，协方差矩阵是对称和半正定的。我们可以对数据协方差矩阵进行SVD（奇异值分解）运算。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 假设输入数据矩阵X的尺寸为[N x D]</span></span><br><span class="line">X -= np.mean(X, axis = <span class="number">0</span>) <span class="comment"># 对数据进行零中心化(重要)</span></span><br><span class="line">cov = np.dot(X.T, X) / X.shape[<span class="number">0</span>] <span class="comment"># 得到数据的协方差矩阵</span></span><br><span class="line">U,S,V = np.linalg.svd(cov)</span><br><span class="line">Xrot = np.dot(X,U) <span class="comment"># 对数据去相关性</span></span><br></pre></td></tr></table></figure></p>
+<p>U的列是特征向量，S是装有奇异值的1维数组（因为cov是对称且半正定的，所以S中元素是特征值的平方）。为了去除数据相关性，将已经零中心化处理过的原始数据投影到特征基准上。<br>注意U的列是标准正交向量的集合（范式为1，列之间标准正交），所以可以把它们看做标准正交基向量。因此，投影对应x中的数据的一个旋转，旋转产生的结果就是新的特征向量。如果计算Xrot的协方差矩阵，将会看到它是对角对称的。np.linalg.svd的一个良好性质是在它的返回值U中，特征向量是按照特征值的大小排列的。我们可以利用这个性质来对数据降维，只要使用前面的小部分特征向量，丢弃掉那些包含的数据没有方差的维度。 这个操作也被称为主成分分析（ Principal Component Analysis 简称PCA）降维：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Xrot_reduced = np.dot(X, U[:,:<span class="number">100</span>]) <span class="comment"># Xrot_reduced 变成 [N x 100]</span></span><br></pre></td></tr></table></figure></p>
+<p>经过上面的操作，将原始的数据集的大小由[N x D]降到了[N x 100]，留下了数据中包含最大方差的100个维度。通常使用PCA降维过的数据训练线性分类器和神经网络会达到非常好的性能效果，同时还能节省时间和存储器空间。<br><strong>白化</strong><br>白化操作的输入是特征基准上的数据，然后对每个维度除以其特征值来对数值范围进行归一化。该变换的几何解释是：如果数据服从多变量的高斯分布，那么经过白化后，数据的分布将会是一个均值为零，且协方差相等的矩阵。该操作的代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对数据进行白化操作:</span></span><br><span class="line"><span class="comment"># 除以特征值 </span></span><br><span class="line">Xwhite = Xrot / np.sqrt(S + <span class="number">1e-5</span>)</span><br></pre></td></tr></table></figure></p>
+<p>下图中左边是二维的原始数据。中间：经过PCA操作的数据。可以看出数据首先是零中心的，然后变换到了数据协方差矩阵的基准轴上。这样就对数据进行了解相关（协方差矩阵变成对角阵）。右边：每个维度都被特征值调整数值范围，将数据协方差矩阵变为单位矩阵。从几何上看，就是对数据在各个方向上拉伸压缩，使之变成服从高斯分布的一个数据点分布。<br><img src="/2019/03/06/activate/pca.png" width="700" height="300"><br><strong>PCA和白化主要是为了介绍的完整性，实际上在卷积神经网络中并不会采用这些变换。然而对数据进行零中心化操作还是非常重要的，对每个像素进行归一化也很常见。</strong><br><strong>常见错误</strong>：进行预处理很重要的一点是：任何预处理策略（比如数据均值）都只能在训练集数据上进行计算，算法训练完毕后再应用到验证集或者测试集上。例如，如果先计算整个数据集图像的平均值然后每张图片都减去平均值，最后将整个数据集分成训练/验证/测试集，那么这个做法是错误的。应该怎么做呢？应该先分成训练/验证/测试集，只是从训练集中求图片平均值，然后各个集（训练/验证/测试集）中的图像再减去这个平均值。</p>
+<h2 id="权重初始化"><a href="#权重初始化" class="headerlink" title="权重初始化"></a>权重初始化</h2><p>在开始训练网络之前，还需要初始化网络的参数。<br><strong>错误：全零初始化</strong>。让我们从应该避免的错误开始。在训练完毕后，虽然不知道网络中每个权重的最终值应该是多少，但如果数据经过了恰当的归一化的话，就可以假设所有权重数值中大约一半为正数，一半为负数。这样，一个听起来蛮合理的想法就是把这些权重的初始值都设为0吧，因为在期望上来说0是最合理的猜测。这个做法错误的！因为如果网络中的每个神经元都计算出同样的输出，然后它们就会在反向传播中计算出同样的梯度，从而进行同样的参数更新。换句话说，如果权重被初始化为同样的值，神经元之间就失去了不对称性的源头。<br><strong>小随机数初始化</strong>。因此，权重初始值要非常接近0又不能等于0。解决方法就是将权重初始化为很小的数值，以此来打破对称性。其思路是：如果神经元刚开始的时候是随机且不相等的，那么它们将计算出不同的更新，并将自身变成整个网络的不同部分。小随机数权重初始化的实现方法是：<strong>W = 0.01 * np.random.randn(D,H)</strong>。其中randn函数是基于零均值和标准差的一个高斯分布（译者注：国内教程一般习惯称均值参数为期望$\mu$）来生成随机数的。根据这个式子，每个神经元的权重向量都被初始化为一个随机向量，而这些随机向量又服从一个多变量高斯分布，这样在输入空间中，所有的神经元的指向是随机的。也可以使用均匀分布生成的随机数，但是从实践结果来看，对于算法的结果影响极小。<br><strong>警告</strong>。并不是小数值一定会得到好的结果。例如，一个神经网络的层中的权重值很小，那么在反向传播的时候就会计算出非常小的梯度（因为梯度与权重值是成比例的）。这就会很大程度上减小反向传播中的“梯度信号”，在深度网络中，就会出现问题。<br><strong>使用1/sqrt(n)校准方差</strong>。上面做法存在一个问题，随着输入数据量的增长，随机初始化的神经元的输出数据的分布中的方差也在增大。我们可以除以输入数据量的平方根来调整其数值范围，这样神经元输出的方差就归一化到1了。也就是说，建议将神经元的权重向量初始化为：<strong>w = np.random.randn(n) / sqrt(n)</strong>。其中n是输入数据的数量。这样就保证了网络中所有神经元起始时有近似同样的输出分布。实践经验证明，这样做可以提高收敛的速度。<br><img src="/2019/03/06/activate/initialise.png" width="700" height="500"><br><img src="/2019/03/06/activate/initia2.png" width="500" height="200"><br><strong>实践</strong>：当前的推荐是使用ReLU激活函数，并且使用<strong>w = np.random.randn(n) * sqrt(2.0/n)</strong>来进行权重初始化</p>
+<h2 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h2><img src="/2019/03/06/activate/conclusion.jpg" width="700" height="700">
+<h3 id="激活函数的作用"><a href="#激活函数的作用" class="headerlink" title="激活函数的作用"></a>激活函数的作用</h3><p>CNN网络中激活函数一般在卷积层之后，激活feature map中相关特征区域。激活函数的主要作用是<strong>提供网络的非线性建模能力</strong>。激活函数是必不可少的，因为没有激活函数，网络仅能够表示线性映射。</p>
+<h3 id="激活函数的性质"><a href="#激活函数的性质" class="headerlink" title="激活函数的性质"></a>激活函数的性质</h3><ul>
+<li><strong>可微性</strong>：当优化方法是基于梯度的时候，要保证可微性；</li>
+<li><strong>单调性</strong>：当激活函数是单调的时候，单层网络能保证是凸函数；</li>
+<li><strong>输出值范围</strong>：当激活函数输出值是 有限 的时候，基于梯度的优化方法会更加 稳定，因为特征的表示受有限权值的影响更显著;当激活函数的输出是 无限 的时候，模型的训练会更加高效，不过在这种情况小，一般需要更小的learning rate；</li>
+<li><strong>函数形式</strong>：目前来看，常见的激活函数多是分段线性和具有指数形状的非线性函数</li>
+</ul>
+<h3 id="sigmoid激活函数"><a href="#sigmoid激活函数" class="headerlink" title="sigmoid激活函数"></a>sigmoid激活函数</h3><ul>
+<li>函数：  <img src="/2019/03/06/activate/sigmoid1.png" width="150" height="80"></li>
+<li>一阶导数： <img src="/2019/03/06/activate/sigmoid3.png" width="200" height="80"></li>
+<li>推导过程： <img src="/2019/03/06/activate/sigmoid2.png" width="600" height="300"></li>
+<li>曲线图像：<img src="/2019/03/06/activate/picture1.png" width="600" height="600"></li>
+<li>特点：<br>$sigmoid$函数连续，光滑，严格单调，以(0,0.5)中心对称，是一个非常良好的阈值函数;</li>
+<li>优点：域范围限制在(0,1)之间，可以表示概率，或用于输入的归一化，代表性如Sigmoid交叉熵损失函数。</li>
+<li>缺点：<strong>饱和性导致梯度消失</strong>:从$sigmod$曲线图像可以看到，其两侧导数逐渐趋近于0，$ \lim_{x \to \infty}{f^{\prime}(x)} = 0 $ 具有这种性质的称为<strong>软饱和</strong>激活函数。饱和又可分为左饱和与右饱和。与软饱和对应的是<strong>硬饱和</strong>, 即 $f^{\prime}(x) = 0$，当$|x|&gt;c$，其中$c$为常数。$Sigmoid$的软饱和性，使得深度神经网络在二三十年里一直难以有效的训练，是阻碍神经网络发展的重要原因。具体来说，由于在后向传递过程中，$sigmoid$向下传导的梯度一旦输入落入饱和区，$f^{\prime}(x)$ 就会变得接近于0，导致了向底层传递的梯度也变得非常小。此时，网络参数很难得到有效训练。这种现象被称为<strong>梯度消失</strong>。一般来说， $sigmoid$网络在 5 层之内就会产生梯度消失现象.<br><strong>均值非0</strong>：$sigmoid$函数的输出均大于0，使得输出不是0均值，这称为<strong>偏移现象</strong>，这会导致后一层的神经元将得到上一层输出的非0均值的信号作为输入。</li>
+</ul>
+<h3 id="tanh激活函数"><a href="#tanh激活函数" class="headerlink" title="tanh激活函数"></a>tanh激活函数</h3><ul>
+<li>函数： </li>
+<li>曲线图像：<img src="/2019/03/06/activate/picture2.png" width="600" height="600">
+<ul>
+<li>特点：<br>tanh与sigmoid相比，它的输出均值是0，使得其收敛速度要比sigmoid快，减少迭代次数。但是tanh一样具有软饱和性，从而造成梯度消失。</li>
+</ul>
+</li>
+</ul>
+<h3 id="ReLU，P-ReLU-Leaky-ReLU"><a href="#ReLU，P-ReLU-Leaky-ReLU" class="headerlink" title="ReLU，P-ReLU, Leaky-ReLU"></a>ReLU，P-ReLU, Leaky-ReLU</h3><h4 id="ReLU函数"><a href="#ReLU函数" class="headerlink" title="ReLU函数"></a>ReLU函数</h4><ul>
+<li>函数：$f(x) = \max{(0, x)}$</li>
+<li>曲线图像：<img src="/2019/03/06/activate/pictureRelu.png" width="600" height="600"></li>
+<li>优点：ReLU的全称是Rectified Linear Units，是一种后来才出现的激活函数。 当x&lt;0时，ReLU硬饱和，而当x&gt;0时，则不存在饱和问题。所以，ReLU 能够在x&gt;0时保持梯度不衰减，从而缓解梯度消失问题。这让我们能够直接以监督的方式训练深度神经网络，而无需依赖无监督的逐层预训练。</li>
+<li>缺点：随着训练的推进，部分输入会落入硬饱和区，导致对应权重无法更新。这种现象被称为<strong>“神经元死亡”</strong>。与sigmoid类似，ReLU的输出均值也大于0，<strong>偏移现象和神经元死亡会共同影响网络的收敛性</strong>。</li>
+</ul>
+<h3 id="P-ReLU-Leaky-ReLU函数"><a href="#P-ReLU-Leaky-ReLU函数" class="headerlink" title="P-ReLU, Leaky-ReLU函数"></a>P-ReLU, Leaky-ReLU函数</h3><p>针对在$x&lt;0$的硬饱和问题，我们对ReLU做出相应的改进，使得<br> <img src="/2019/03/06/activate/prelu.png" width="500" height="500"><br>这就是Leaky-ReLU, 而P-ReLU认为，α也可以作为一个参数来学习。</p>
+<h3 id="ELU激活函数"><a href="#ELU激活函数" class="headerlink" title="ELU激活函数"></a>ELU激活函数</h3> <img src="/2019/03/06/activate/elu.png" width="500" height="500">
+<p>融合了sigmoid和ReLU，左侧具有软饱和性，右侧无饱和性。右侧线性部分使得ELU能够缓解梯度消失，而左侧软饱能够让ELU对输入变化或噪声更鲁棒。ELU的输出均值接近于零，所以收敛速度更快。在 ImageNet上，不加 Batch Normalization 30 层以上的 ReLU 网络会无法收敛，PReLU网络在MSRA的Fan-in （caffe ）初始化下会发散，而 ELU 网络在Fan-in/Fan-out下都能收敛</p>
+<h3 id="Maxout激活函数"><a href="#Maxout激活函数" class="headerlink" title="Maxout激活函数"></a>Maxout激活函数</h3><img src="/2019/03/06/activate/maxout.png" width="500" height="50">
+<p><strong>优点</strong>：与常规激活函数不同的是,它是一个可学习的分段线性函数，任何一个凸函数，都可以由线性分段函数进行逼近近似，因此<strong>Maxout可以拟合任意的凸函数</strong>；能够缓解梯度消失，同时又规避了ReLU神经元死亡的缺点；<br><strong>缺点</strong>：从上面的激活函数公式中可以看出，每个神经元中有两组(w,b)参数，那么<strong>参数量就增加了一倍</strong>，这就导致了整体参数的数量激增。</p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>如果使用 ReLU，那么一定要小心设置 learning rate，而且要注意不要让你的网络出现很多 “dead” 神经元，如果这个问题不好解决，那么可以试试 Leaky ReLU、PReLU 或者 Maxout.<br>最好不要用 sigmoid，可以试试 tanh，不过可以预期它的效果会比不上 ReLU 和 Maxout.</p>
+<p>## </p>
+<h2 id="梯度更新"><a href="#梯度更新" class="headerlink" title="梯度更新"></a>梯度更新</h2><p>目前优化神经网络的方法都是基于反向传播的思想，即根据损失函数计算的误差通过梯度反向传播的方式，指导深度网络权值的更新优化。</p>
+<h3 id="为什么要使用梯度更新"><a href="#为什么要使用梯度更新" class="headerlink" title="为什么要使用梯度更新"></a>为什么要使用梯度更新</h3><p>深层网络由许多非线性层堆叠而来，每一层非线性层都可以视为是一个非线性函数$f(x)$(非线性来自于非线性激活函数），因此整个深度网络可以视为是一个复合的非线性多元函数$$ F(x)=f_n(…f_3(f_2(f_1​(x)∗θ_1+b)∗θ_2+b)…) $$</p>
+<p>最终的目的是希望这个多元函数可以很好的完成输入到输出之间的映射。假设不同的输入，输出的最优解是$g(x)$,那么，优化深度网络就是为了寻找到合适的权值，满足$Loss=L(g(x),F(x))$取得极小值点，比如最简单的损失函数 $$Loss=∣∣g(x)−f(x)∣∣^{2}_{2}$$</p>
+<p>假设损失函数的数据空间是下图这样的，最优的权值就是为了寻找下图中的最小值点，对于这种数学寻找最小值问题，采用梯度下降的方法再适合不过了。<br><img src="/2019/03/06/activate/gradient1.png" width="600" height="500"></p>
+<h3 id="梯度更新方法"><a href="#梯度更新方法" class="headerlink" title="梯度更新方法"></a>梯度更新方法</h3><h3 id="梯度消失、爆炸"><a href="#梯度消失、爆炸" class="headerlink" title="梯度消失、爆炸"></a>梯度消失、爆炸</h3><p>梯度消失与梯度爆炸其实是一种情况。两种情况下梯度消失经常出现，一是在深层网络中，二是采用了不合适的激活函数，比如sigmoid。梯度爆炸一般出现在深层网络和权值初始化值太大的情况下，下面分别从这两个角度分析梯度消失和爆炸的原因。<br><strong>原因</strong>：<br><strong>深层网络角度</strong>：<br><img src="/2019/03/06/activate/gradient2.png" width="1000" height="700"><br>总结：<strong>从深层网络角度来讲，不同的层学习的速度差异很大，表现为网络中靠近输出的层学习的情况很好，靠近输入的层学习的很慢</strong>，有时甚至训练了很久，前几层的权值和刚开始随机初始化的值差不多。因此，梯度消失、爆炸，其<strong>根本原因</strong>在于反向传播训练法则，属于先天不足，另外多说一句，Hinton提出capsule的原因就是为了彻底抛弃反向传播，如果真能大范围普及，那真是一个革命。<br><strong>激活函数角度</strong>:<br>如果激活函数选择不合适，比如使用sigmoid，梯度消失就会很明显了。<br><strong>解决办法</strong>：</p>
+<ul>
+<li>1.<strong>预训练加微调</strong>：此方法来自Hinton在2006年发表的一篇论文，Hinton为了解决梯度的问题，提出采取无监督逐层训练方法，其基本思想是每次训练一层隐节点，训练时将上一层隐节点的输出作为输入，而本层隐节点的输出作为下一层隐节点的输入，此过程就是逐层“预训练”（pre-training）；在预训练完成后，再对整个网络进行“微调”（fine-tunning）。Hinton在训练深度信念网络（Deep Belief Networks中，使用了这个方法，在各层预训练完成后，再利用BP算法对整个网络进行训练。此思想相当于是先寻找局部最优，然后整合起来寻找全局最优，此方法有一定的好处，但是目前应用的不是很多了。</li>
+<li>2.<strong>梯度剪切、正则</strong>：梯度剪切这个方案主要是针对梯度爆炸提出的，其思想是设置一个梯度剪切阈值，然后更新梯度的时候，如果梯度超过这个阈值，那么就将其强制限制在这个范围之内。这可以防止梯度爆炸。另外一种解决梯度爆炸的手段是采用权重正则化（weithts regularization）比较常见的是l1<br>$l1$正则和$l2$正则。</li>
+<li>3.relu、leakrelu、elu等激活函数</li>
+<li>4.batch normalization，批规范化：通过规范化操作将输出信号x规范化保证网络的稳定性。</li>
+<li>5.残差结构。</li>
+<li>6.LSTM。</li>
+</ul>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><h2 id="批量归一化"><a href="#批量归一化" class="headerlink" title="批量归一化"></a>批量归一化</h2><p>批量归一化（Batch Normalization）</p>
+<h2 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h2><p>正则化（Regularization）是机器学习中一种常用的技术，其主要目的是控制模型复杂度，减小过拟合。最基本的正则化方法是在原目标（代价）函数 中添加惩罚项，对复杂度高的模型进行“惩罚”。其数学表达形式为：<br><img src="/2019/03/06/activate/regular1.png" width="800" height="300"><br>l1和l2的正则化数学推导来源见<a href="https://zhuanlan.zhihu.com/p/29360425" target="_blank" rel="noopener">深入理解L1、L2正则化</a></p>
+<h3 id="l-2-正则化的直观理解"><a href="#l-2-正则化的直观理解" class="headerlink" title="$l_{2}$ 正则化的直观理解"></a>$l_{2}$ 正则化的直观理解</h3><img src="/2019/03/06/activate/l2.png" width="600" height="600">
+<p>图中椭圆为原目标函数$ J\left( w \right) $的一条等高线，圆为半径 $\sqrt{C} $的$l_{2} $范数球。由于约束条件的限制， $w $必须位于$ l_{2} $范数球内。考虑边界上的一点 $w $，图中蓝色箭头为$ J\left( w \right) $在该处的梯度方向$ \nabla J\left( w \right) $，红色箭头为$ l_{2} $范数球在该处的法线方向。由于$ w $不能离开边界（否则违反约束条件），因而在使用梯度下降法更新$ w$ 时，只能朝 $\nabla J\left( w \right) $在 范数球上 $w $处的切线方向更新，即图中绿色箭头的方向。如此$ w $将沿着边界移动，当 $\nabla J\left( w \right) $与范数球上 $w $处的法线平行时，此时$ \nabla J\left( w \right) $在切线方向的分量为0，$ w $将无法继续移动，从而达到最优解$ w^{*}$（图中红色点所示）。</p>
+<h3 id="l-1-正则化的直观理解"><a href="#l-1-正则化的直观理解" class="headerlink" title="$l_{1}$ 正则化的直观理解"></a>$l_{1}$ 正则化的直观理解</h3><img src="/2019/03/06/activate/l1.png" width="600" height="600">
+<p> <strong>$l_{1}$ 范数会使w产生稀疏性的原因</strong>:<br>其主要差别在于$ l_{1} 、 l_{2} $范数球的形状差异。由于此时每条边界上$ w $的切线和法线方向保持不变，在图中$ w $将一直朝着$ \nabla J\left( w \right) $在切线方向的分量沿着边界向左上移动。当$ w $跨过顶点到达$ w’ $时， $\nabla J\left( w \right) $在切线方向的分量变为右上方，因而$ w $将朝右上方移动。最终，$ w $将稳定在顶点处，达到最优解 $w^{*}$ 。此时，可以看到 $w_{1}=0$ ，这也就是采用 $l_{1}$ 范数会使w产生稀疏性的原因。</p>
+<h3 id="其他正则化方法"><a href="#其他正则化方法" class="headerlink" title="其他正则化方法"></a>其他正则化方法</h3><p><strong>Droupt out</strong>:是一个简单又极其有效的正则化方法.在训练的时候，随机失活的实现方法是让神经元以超参数p的概率被激活或者被设置为0。<br><strong>最大范式约束（Max norm constraints）</strong>:另一种形式的正则化是给每个神经元中权重向量的量级设定上限，并使用投影梯度下降来确保这一约束。在实践中，与之对应的是参数更新方式不变，然后要求神经元中的权重向量$\overrightarrow{w}$必须满足$||\overrightarrow{w}||_2&lt;c$这一条件，一般c值为3或者4。有研究者发文称在使用这种正则化方法时效果更好。这种正则化还有一个良好的性质，即使在学习率设置过高的时候，网络中也不会出现数值“爆炸”，这是因为它的参数更新始终是被限制着的。</p>
+<h2 id="优化方法"><a href="#优化方法" class="headerlink" title="优化方法"></a>优化方法</h2><h2 id="训练技巧"><a href="#训练技巧" class="headerlink" title="训练技巧"></a>训练技巧</h2><ul>
+<li>推荐的预处理操作是对数据的每个特征都进行零中心化，然后将其数值范围都归一化到[-1,1]范围之内。</li>
+<li>使用标准差为$\sqrt{2/n}$的高斯分布来初始化权重，其中n是输入的神经元数。例如用numpy可以写作：<strong>w = np.random.randn(n) * sqrt(2.0/n)。</strong></li>
+<li>使用L2正则化和随机失活的倒置版本。</li>
+<li>使用批量归一化。</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li>1.<a href="https://www.cnblogs.com/sxron/articles/6591149.html" target="_blank" rel="noopener">激活函数、损失函数及其优化方法总结</a></li>
+<li>2.<a href="https://blog.csdn.net/saltriver/article/details/57531963" target="_blank" rel="noopener">Sigmoid函数</a></li>
+<li>3.<a href="https://blog.csdn.net/colourful_sky/article/details/79164720" target="_blank" rel="noopener">常见的激活函数总结</a></li>
+<li>4.<a href="https://juejin.im/entry/58a1576e2f301e006952ded1" target="_blank" rel="noopener">[机器学习] 常用激活函数的总结与比较</a></li>
+<li>5.<a href="https://www.cnblogs.com/makefile/p/activation-function.html" target="_blank" rel="noopener">激活函数(ReLU, Swish, Maxout)</a></li>
+<li>6.<a href="https://blog.csdn.net/qq_25737169/article/details/78847691" target="_blank" rel="noopener">详解机器学习中的梯度消失、爆炸原因及其解决方法</a></li>
+<li>7.<a href="https://zhuanlan.zhihu.com/p/29360425" target="_blank" rel="noopener">深入理解L1、L2正则化</a></li>
+<li>8.<a href="https://zhuanlan.zhihu.com/p/21560667?refer=intelligentunit" target="_blank" rel="noopener">CS231n课程笔记翻译：神经网络笔记 2</a></li>
+<li>9.<a href=""></a></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/04/basic-algorithm/" rel="next" title="常用数据结构和算法系列(一)--排序、回溯">
+                <i class="fa fa-chevron-left"></i> 常用数据结构和算法系列(一)--排序、回溯
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/yuanyuan.jpeg" alt="yuanyuan">
+            
+              <p class="site-author-name" itemprop="name">yuanyuan</p>
+              <p class="site-description motion-element" itemprop="description">天道酬勤</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据预处理"><span class="nav-number">1.</span> <span class="nav-text">数据预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#零中心化、归一化"><span class="nav-number">1.1.</span> <span class="nav-text">零中心化、归一化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCA和白化（Whitening）"><span class="nav-number">1.2.</span> <span class="nav-text">PCA和白化（Whitening）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#权重初始化"><span class="nav-number">2.</span> <span class="nav-text">权重初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#激活函数"><span class="nav-number">3.</span> <span class="nav-text">激活函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#激活函数的作用"><span class="nav-number">3.1.</span> <span class="nav-text">激活函数的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活函数的性质"><span class="nav-number">3.2.</span> <span class="nav-text">激活函数的性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sigmoid激活函数"><span class="nav-number">3.3.</span> <span class="nav-text">sigmoid激活函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tanh激活函数"><span class="nav-number">3.4.</span> <span class="nav-text">tanh激活函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReLU，P-ReLU-Leaky-ReLU"><span class="nav-number">3.5.</span> <span class="nav-text">ReLU，P-ReLU, Leaky-ReLU</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ReLU函数"><span class="nav-number">3.5.1.</span> <span class="nav-text">ReLU函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P-ReLU-Leaky-ReLU函数"><span class="nav-number">3.6.</span> <span class="nav-text">P-ReLU, Leaky-ReLU函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ELU激活函数"><span class="nav-number">3.7.</span> <span class="nav-text">ELU激活函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maxout激活函数"><span class="nav-number">3.8.</span> <span class="nav-text">Maxout激活函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用方法"><span class="nav-number">3.9.</span> <span class="nav-text">使用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度更新"><span class="nav-number">4.</span> <span class="nav-text">梯度更新</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要使用梯度更新"><span class="nav-number">4.1.</span> <span class="nav-text">为什么要使用梯度更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度更新方法"><span class="nav-number">4.2.</span> <span class="nav-text">梯度更新方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度消失、爆炸"><span class="nav-number">4.3.</span> <span class="nav-text">梯度消失、爆炸</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#损失函数"><span class="nav-number">5.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批量归一化"><span class="nav-number">6.</span> <span class="nav-text">批量归一化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则化"><span class="nav-number">7.</span> <span class="nav-text">正则化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#l-2-正则化的直观理解"><span class="nav-number">7.1.</span> <span class="nav-text">$l_{2}$ 正则化的直观理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#l-1-正则化的直观理解"><span class="nav-number">7.2.</span> <span class="nav-text">$l_{1}$ 正则化的直观理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他正则化方法"><span class="nav-number">7.3.</span> <span class="nav-text">其他正则化方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化方法"><span class="nav-number">8.</span> <span class="nav-text">优化方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练技巧"><span class="nav-number">9.</span> <span class="nav-text">训练技巧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">10.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuanyuan</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.0.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
