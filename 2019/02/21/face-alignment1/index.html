@@ -74,7 +74,7 @@
     root: '/',
     scheme: 'Pisces',
     version: '7.0.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: false,
     fastclick: false,
     lazyload: false,
@@ -110,7 +110,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/02/21/face-alignment1/identification.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/21/face-alignment1/company.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/21/face-alignment1/company1.png">
-<meta property="og:updated_time" content="2019-04-16T14:40:09.511Z">
+<meta property="og:updated_time" content="2019-04-16T14:40:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="人脸对齐系列总结(一) --- 人脸任务概述">
 <meta name="twitter:description" content="计算机视觉上的人脸任务大致可以分为四类：    人脸检测(Face Detection)  检测输入图片的人脸区域，如果输入图片存在多个人脸，要检测出所有人脸。 难点：多个人脸存在多尺寸问题，人脸部分遮挡，人脸表情姿态各异等    人脸对齐(Face Alignment)  人脸对齐也叫人脸关键点定位(facial landmark)，在人脸检测的基础上，找到眉毛、眼睛、鼻子、嘴巴、人脸轮廓等的位">
@@ -199,7 +199,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="切换导航栏">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -227,7 +227,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
 
   </li>
         
@@ -244,7 +244,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-about"></i> <br>About</a>
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-about"></i> <br>关于</a>
 
   </li>
         
@@ -261,7 +261,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
 
   </li>
         
@@ -278,7 +278,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-categories"></i> <br>Categories</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-categories"></i> <br>分类</a>
 
   </li>
         
@@ -295,7 +295,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archives"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archives"></i> <br>归档</a>
 
   </li>
 
@@ -393,14 +393,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-02-21 21:50:07" itemprop="dateCreated datePublished" datetime="2019-02-21T21:50:07+08:00">2019-02-21</time>
+              <time title="创建时间：2019-02-21 21:50:07" itemprop="dateCreated datePublished" datetime="2019-02-21T21:50:07+08:00">2019-02-21</time>
             
 
             
@@ -415,9 +415,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">更新于</span>
                 
-                <time title="Modified: 2019-04-16 22:40:09" itemprop="dateModified" datetime="2019-04-16T22:40:09+08:00">2019-04-16</time>
+                <time title="修改时间：2019-04-16 22:40:10" itemprop="dateModified" datetime="2019-04-16T22:40:10+08:00">2019-04-16</time>
               
             
           </span>
@@ -431,7 +431,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/deep-learning/" itemprop="url" rel="index"><span itemprop="name">deep learning</span></a></span>
@@ -454,7 +454,7 @@
             <span class="post-meta-divider">|</span>
             <span class="post-meta-item-icon">
             <i class="fa fa-eye"></i>
-             Views:  
+             阅读次数： 
             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
             </span>
           
@@ -604,10 +604,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            站点概览
           </li>
         </ul>
       
@@ -629,8 +629,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">8</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
               
@@ -648,8 +648,10 @@
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
-                    <span class="site-state-item-name">categories</span>
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
               
@@ -673,8 +675,12 @@
                     
                       
                     
-                    <span class="site-state-item-count">6</span>
-                    <span class="site-state-item-name">tags</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
               
@@ -741,15 +747,9 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.0.0</div>
 
 
 
@@ -762,7 +762,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-user"></i>
     </span>
-    <span class="site-uv" title="Total Visitors">
+    <span class="site-uv" title="总访客量">
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
     </span>
   
@@ -775,7 +775,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-eye"></i>
     </span>
-    <span class="site-pv" title="Total Views">
+    <span class="site-pv" title="总访问量">
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
     </span>
   
@@ -796,6 +796,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     

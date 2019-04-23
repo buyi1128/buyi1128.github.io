@@ -96,25 +96,28 @@
 
 
 
-  <meta name="description" content="天道酬勤">
-<meta name="keywords" content="deep learning,CNN">
+  <meta name="description" content="人脸识别简介人脸识别最新趋势人脸识别论文DeepFace（2014， FaceBook）DeepFace是FaceBook提出来的，后续有DeepID和FaceNet出现。而且在DeepID和FaceNet中都能体现DeepFace的身影，所以DeepFace可以谓之CNN在人脸识别的奠基之作。在人脸识别中，通常经过四个步骤：检测、对齐、表示、分类。DeepFace主要在对齐和表示这两个步骤上提出">
+<meta name="keywords" content="deep learning,face recognition">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CNN系列总结(三)---经典模型结构">
-<meta property="og:url" content="http://yoursite.com/2019/03/03/basicCNN2/index.html">
+<meta property="og:title" content="人脸识别系列(一)">
+<meta property="og:url" content="http://yoursite.com/2019/04/23/faceRecognition1/index.html">
 <meta property="og:site_name" content="Yuanyuan&#39;s blog">
-<meta property="og:description" content="天道酬勤">
+<meta property="og:description" content="人脸识别简介人脸识别最新趋势人脸识别论文DeepFace（2014， FaceBook）DeepFace是FaceBook提出来的，后续有DeepID和FaceNet出现。而且在DeepID和FaceNet中都能体现DeepFace的身影，所以DeepFace可以谓之CNN在人脸识别的奠基之作。在人脸识别中，通常经过四个步骤：检测、对齐、表示、分类。DeepFace主要在对齐和表示这两个步骤上提出">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-16T14:40:10.000Z">
+<meta property="og:image" content="http://yoursite.com/2019/04/23/faceRecognition1/deepface1.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/23/faceRecognition1/deepface2.png">
+<meta property="og:updated_time" content="2019-04-23T10:43:53.312Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CNN系列总结(三)---经典模型结构">
-<meta name="twitter:description" content="天道酬勤">
+<meta name="twitter:title" content="人脸识别系列(一)">
+<meta name="twitter:description" content="人脸识别简介人脸识别最新趋势人脸识别论文DeepFace（2014， FaceBook）DeepFace是FaceBook提出来的，后续有DeepID和FaceNet出现。而且在DeepID和FaceNet中都能体现DeepFace的身影，所以DeepFace可以谓之CNN在人脸识别的奠基之作。在人脸识别中，通常经过四个步骤：检测、对齐、表示、分类。DeepFace主要在对齐和表示这两个步骤上提出">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/23/faceRecognition1/deepface1.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/03/basicCNN2/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/23/faceRecognition1/">
 
 
 
@@ -124,7 +127,7 @@
   };
 </script>
 
-  <title>CNN系列总结(三)---经典模型结构 | Yuanyuan's blog</title>
+  <title>人脸识别系列(一) | Yuanyuan's blog</title>
   
 
 
@@ -340,7 +343,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/03/basicCNN2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/faceRecognition1/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yuanyuan">
@@ -357,7 +360,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CNN系列总结(三)---经典模型结构
+          <h1 class="post-title" itemprop="name headline">人脸识别系列(一)
 
               
             
@@ -369,9 +372,9 @@
           
           <span class="post-letters-count">
             &nbsp; | &nbsp;
-            <span>0 字</span>
+            <span>1.2k 字</span>
             &nbsp; | &nbsp;
-            <span>1 min</span>
+            <span>4 min</span>
           </span>
           
 
@@ -393,24 +396,12 @@
                 
               
 
-              <time title="创建时间：2019-03-03 11:54:35" itemprop="dateCreated datePublished" datetime="2019-03-03T11:54:35+08:00">2019-03-03</time>
+              <time title="创建时间：2019-04-23 10:24:50 / 修改时间：18:43:53" itemprop="dateCreated datePublished" datetime="2019-04-23T10:24:50+08:00">2019-04-23</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-16 22:40:10" itemprop="dateModified" datetime="2019-04-16T22:40:10+08:00">2019-04-16</time>
               
             
           </span>
@@ -469,7 +460,46 @@
       
 
       
-        
+        <h1 id="人脸识别简介"><a href="#人脸识别简介" class="headerlink" title="人脸识别简介"></a>人脸识别简介</h1><h1 id="人脸识别最新趋势"><a href="#人脸识别最新趋势" class="headerlink" title="人脸识别最新趋势"></a>人脸识别最新趋势</h1><h1 id="人脸识别论文"><a href="#人脸识别论文" class="headerlink" title="人脸识别论文"></a>人脸识别论文</h1><h2 id="DeepFace（2014，-FaceBook）"><a href="#DeepFace（2014，-FaceBook）" class="headerlink" title="DeepFace（2014， FaceBook）"></a>DeepFace（2014， FaceBook）</h2><p>DeepFace是FaceBook提出来的，后续有DeepID和FaceNet出现。而且在DeepID和FaceNet中都能体现DeepFace的身影，所以DeepFace可以谓之CNN在人脸识别的奠基之作。<br>在人脸识别中，通常经过四个步骤：检测、对齐、表示、分类。DeepFace主要在<strong>对齐</strong>和<strong>表示</strong>这两个步骤上提出了新的方法，<br><strong>对齐</strong>方面主要使用了3D人脸模型来对齐人脸，<strong>表示</strong>方面使用了9层的CNN，CNN使用了局部卷积,卷积权重不共享。</p>
+<h3 id="基本框架"><a href="#基本框架" class="headerlink" title="基本框架"></a>基本框架</h3><ul>
+<li><p>人脸对齐 (face alignment)<br>已经存在一些人脸数据库的对齐版本（比如LFW-a），但是对齐人脸仍然是一件很困难的事，由于受到姿态（人脸的非平面性），非刚性表情等因素的影响。已经有很多方法成功用于人脸对齐，论文使用的方法是基于基准点的3D建模方法，把人脸转为3D的正脸。主要步骤为：</p>
+<ul>
+<li>1.用LBP+SVR的方法检测出人脸的6个基准点，眼镜两个点，鼻子一个点，嘴巴三个点，如下图(a); LBP特征参考<a href="https://senitco.github.io/2017/06/12/image-feature-lbp/" target="_blank" rel="noopener">图像特征提取之LBP特征</a></li>
+<li>2.通过拟合一个对基准点的转换（缩放，旋转，平移）对图像进行裁剪，得到下图(b)</li>
+<li>3.对图像定位67个基准点，并进行三角剖分，得到下图(c)</li>
+<li>4.用一个3D人脸库USF Human-ID得到一个平均3D人脸模型（正脸），如图(d)</li>
+<li>5.学习一个3D人脸模型和原2D人脸之间的映射P，并可视化三角块，如图(e)</li>
+<li>6.通过相关的映射，把原2D人脸中的基准点转换成3D模型产生的基准点，得到如图(f)所示，最后的正脸就是图(g)。<img src="/2019/04/23/faceRecognition1/deepface1.png" width="600" height="400" title="\">
+</li>
+</ul>
+</li>
+<li><p>人脸表示</p>
+<ul>
+<li>1.如下图所示，训练了一个DNN来提取人脸图像的特征表示</li>
+<li>2.C1和C3表示卷积层，M2表示最大池化层，“32x11x11x3@142x142”表示使用32个大小为11x11x3的卷积核，输出feature map的大小为142x142。前三层主要提取低水平特征，其中最大池化可以使输出对微小的偏移更加鲁棒（可能人脸对齐歪了一些也没关系），因为最大池化会损失信息所有没有使用太多。</li>
+<li>3.L4，L5，L6是局部卷积层，对于feature map上每个位置，学到不同的卷积核（即一张feature map上的卷积核参数不共享），因为人脸的不同区域会有不同的统计特征，比如眼睛和眉毛之间的区域比鼻子和嘴巴之间的区域具有更高的区分能力。局部卷积层会导致更大的参数量，需要很大的数据量才能支撑的起。</li>
+<li>4.F7和F8是全连接层，用来捕捉（不同位置的）特征的相关性，比如眼睛的位置和形状，和嘴巴的位置和形状。F7层的输出提取出来作为人脸特征，和LBP特征对比。F8层的特征喂给softmax用于分类</li>
+<li>5.对F7层的输出特征进行归一化（除以训练集上所有样本中的最大值），得到的特征向量值都为0到1之间。<img src="/2019/04/23/faceRecognition1/deepface2.png" width="800" height="200" title="\">
+</li>
+</ul>
+</li>
+<li><p>验证度量</p>
+<ul>
+<li>验证就是输入两个实例，判断它们是不是属于同一类。用监督学习来进行人脸验证被广泛研究。但是有监督学习中训练数据和测试数据的不一致会导致很差的泛化能力，如果将模型拟合在小的数据集则会大大减小它泛化到其它数据集的能力。无监督度量是直接对两个特征向量做内积，而<strong>有监督度量有卡方相似度和孪生网络</strong>。</li>
+<li>卡方相似度:  $ \nabla J\left( w \right) $</li>
+</ul>
+</li>
+</ul>
+<p>总体上说，这一步的作用就是使用3D模型来将人脸对齐，从而使CNN发挥最大的效果<br>神经网络能work的一部分原因在于，一旦人脸对齐，人脸区域的特征就固定在某些像素位置上了。</p>
+<h2 id="DeepID-商汤科技"><a href="#DeepID-商汤科技" class="headerlink" title="DeepID (商汤科技)"></a>DeepID (商汤科技)</h2><h2 id="GaussianFace-科大讯飞"><a href="#GaussianFace-科大讯飞" class="headerlink" title="GaussianFace (科大讯飞)"></a>GaussianFace (科大讯飞)</h2><h2 id="Face-旷视科技"><a href="#Face-旷视科技" class="headerlink" title="Face++ (旷视科技)"></a>Face++ (旷视科技)</h2><h2 id="FaceNet-Google"><a href="#FaceNet-Google" class="headerlink" title="FaceNet (Google)"></a>FaceNet (Google)</h2><h2 id="VGG-Face-牛津大学"><a href="#VGG-Face-牛津大学" class="headerlink" title="VGG-Face (牛津大学)"></a>VGG-Face (牛津大学)</h2><h2 id="FR-FCN"><a href="#FR-FCN" class="headerlink" title="FR+FCN"></a>FR+FCN</h2><h2 id="SphereFace"><a href="#SphereFace" class="headerlink" title="SphereFace"></a>SphereFace</h2><h2 id="NormFace"><a href="#NormFace" class="headerlink" title="NormFace"></a>NormFace</h2><h2 id="ArcFace"><a href="#ArcFace" class="headerlink" title="ArcFace"></a>ArcFace</h2><h2 id="MobileFaceNets"><a href="#MobileFaceNets" class="headerlink" title="MobileFaceNets"></a>MobileFaceNets</h2><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+<li><a href="https://www.cnblogs.com/liaohuiqiang/p/9362575.html" target="_blank" rel="noopener">论文笔记：DeepFace: Closing the Gap to Human-Level Performance in Face Verification</a></li>
+<li><a href="http://www.zhongruitech.com/864658121.html" target="_blank" rel="noopener">DeepFace介绍</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1077224" target="_blank" rel="noopener">【源码】Python的开源人脸识别库：离线识别率高达99.38%</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/29823465" target="_blank" rel="noopener">【人脸识别】DeepFace： Closing the Gap to Human-Level Performance in Face Verification</a></li>
+<li><a href="https://www.sharebook.site/2017/07/30/face-recognition-technology-trend-and-summary/" target="_blank" rel="noopener">人脸识别技术开源代码及最新趋势汇总</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/24816781" target="_blank" rel="noopener">基于深度学习的人脸识别技术综述</a></li>
+</ul>
+
       
     </div>
 
@@ -494,7 +524,7 @@
           
             <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
           
-            <a href="/tags/CNN/" rel="tag"># CNN</a>
+            <a href="/tags/face-recognition/" rel="tag"># face recognition</a>
           
         </div>
       
@@ -507,8 +537,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/26/basicCNN/" rel="next" title="CNN系列总结(一)---基础知识点">
-                <i class="fa fa-chevron-left"></i> CNN系列总结(一)---基础知识点
+              <a href="/2019/03/06/activate/" rel="next" title="CNN系列总结(二)---数据预处理、激活函数、梯度、损失函数、优化方法等">
+                <i class="fa fa-chevron-left"></i> CNN系列总结(二)---数据预处理、激活函数、梯度、损失函数、优化方法等
               </a>
             
           </div>
@@ -517,8 +547,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/04/basic-algorithm/" rel="prev" title="常用数据结构和算法系列(一)--排序、回溯">
-                常用数据结构和算法系列(一)--排序、回溯 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/23/机器学习基本算法/" rel="prev" title="机器学习基本算法">
+                机器学习基本算法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -564,8 +594,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -657,6 +696,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#人脸识别简介"><span class="nav-number">1.</span> <span class="nav-text">人脸识别简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#人脸识别最新趋势"><span class="nav-number">2.</span> <span class="nav-text">人脸识别最新趋势</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#人脸识别论文"><span class="nav-number">3.</span> <span class="nav-text">人脸识别论文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepFace（2014，-FaceBook）"><span class="nav-number">3.1.</span> <span class="nav-text">DeepFace（2014， FaceBook）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本框架"><span class="nav-number">3.1.1.</span> <span class="nav-text">基本框架</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepID-商汤科技"><span class="nav-number">3.2.</span> <span class="nav-text">DeepID (商汤科技)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GaussianFace-科大讯飞"><span class="nav-number">3.3.</span> <span class="nav-text">GaussianFace (科大讯飞)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Face-旷视科技"><span class="nav-number">3.4.</span> <span class="nav-text">Face++ (旷视科技)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FaceNet-Google"><span class="nav-number">3.5.</span> <span class="nav-text">FaceNet (Google)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VGG-Face-牛津大学"><span class="nav-number">3.6.</span> <span class="nav-text">VGG-Face (牛津大学)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FR-FCN"><span class="nav-number">3.7.</span> <span class="nav-text">FR+FCN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SphereFace"><span class="nav-number">3.8.</span> <span class="nav-text">SphereFace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NormFace"><span class="nav-number">3.9.</span> <span class="nav-text">NormFace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArcFace"><span class="nav-number">3.10.</span> <span class="nav-text">ArcFace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MobileFaceNets"><span class="nav-number">3.11.</span> <span class="nav-text">MobileFaceNets</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
