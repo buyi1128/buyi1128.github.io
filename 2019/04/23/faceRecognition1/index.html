@@ -106,7 +106,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/04/23/faceRecognition1/deepface1.png">
 <meta property="og:image" content="http://yoursite.com/2019/04/23/faceRecognition1/deepface2.png">
-<meta property="og:updated_time" content="2019-04-23T10:43:53.312Z">
+<meta property="og:image" content="http://yoursite.com/2019/04/23/faceRecognition1/deepface3.png">
+<meta property="og:updated_time" content="2019-04-23T11:02:29.016Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="人脸识别系列(一)">
 <meta name="twitter:description" content="人脸识别简介人脸识别最新趋势人脸识别论文DeepFace（2014， FaceBook）DeepFace是FaceBook提出来的，后续有DeepID和FaceNet出现。而且在DeepID和FaceNet中都能体现DeepFace的身影，所以DeepFace可以谓之CNN在人脸识别的奠基之作。在人脸识别中，通常经过四个步骤：检测、对齐、表示、分类。DeepFace主要在对齐和表示这两个步骤上提出">
@@ -372,9 +373,9 @@
           
           <span class="post-letters-count">
             &nbsp; | &nbsp;
-            <span>1.2k 字</span>
+            <span>1.7k 字</span>
             &nbsp; | &nbsp;
-            <span>4 min</span>
+            <span>6 min</span>
           </span>
           
 
@@ -396,7 +397,7 @@
                 
               
 
-              <time title="创建时间：2019-04-23 10:24:50 / 修改时间：18:43:53" itemprop="dateCreated datePublished" datetime="2019-04-23T10:24:50+08:00">2019-04-23</time>
+              <time title="创建时间：2019-04-23 10:24:50 / 修改时间：19:02:29" itemprop="dateCreated datePublished" datetime="2019-04-23T10:24:50+08:00">2019-04-23</time>
             
 
             
@@ -461,8 +462,7 @@
 
       
         <h1 id="人脸识别简介"><a href="#人脸识别简介" class="headerlink" title="人脸识别简介"></a>人脸识别简介</h1><h1 id="人脸识别最新趋势"><a href="#人脸识别最新趋势" class="headerlink" title="人脸识别最新趋势"></a>人脸识别最新趋势</h1><h1 id="人脸识别论文"><a href="#人脸识别论文" class="headerlink" title="人脸识别论文"></a>人脸识别论文</h1><h2 id="DeepFace（2014，-FaceBook）"><a href="#DeepFace（2014，-FaceBook）" class="headerlink" title="DeepFace（2014， FaceBook）"></a>DeepFace（2014， FaceBook）</h2><p>DeepFace是FaceBook提出来的，后续有DeepID和FaceNet出现。而且在DeepID和FaceNet中都能体现DeepFace的身影，所以DeepFace可以谓之CNN在人脸识别的奠基之作。<br>在人脸识别中，通常经过四个步骤：检测、对齐、表示、分类。DeepFace主要在<strong>对齐</strong>和<strong>表示</strong>这两个步骤上提出了新的方法，<br><strong>对齐</strong>方面主要使用了3D人脸模型来对齐人脸，<strong>表示</strong>方面使用了9层的CNN，CNN使用了局部卷积,卷积权重不共享。</p>
-<h3 id="基本框架"><a href="#基本框架" class="headerlink" title="基本框架"></a>基本框架</h3><ul>
-<li><p>人脸对齐 (face alignment)<br>已经存在一些人脸数据库的对齐版本（比如LFW-a），但是对齐人脸仍然是一件很困难的事，由于受到姿态（人脸的非平面性），非刚性表情等因素的影响。已经有很多方法成功用于人脸对齐，论文使用的方法是基于基准点的3D建模方法，把人脸转为3D的正脸。主要步骤为：</p>
+<h3 id="基本框架"><a href="#基本框架" class="headerlink" title="基本框架"></a>基本框架</h3><h4 id="人脸对齐-face-alignment"><a href="#人脸对齐-face-alignment" class="headerlink" title="人脸对齐 (face alignment)"></a>人脸对齐 (face alignment)</h4><p>  已经存在一些人脸数据库的对齐版本（比如LFW-a），但是对齐人脸仍然是一件很困难的事，由于受到姿态（人脸的非平面性），非刚性表情等因素的影响。已经有很多方法成功用于人脸对齐，论文使用的方法是基于基准点的3D建模方法，把人脸转为3D的正脸。主要步骤为：</p>
 <ul>
 <li>1.用LBP+SVR的方法检测出人脸的6个基准点，眼镜两个点，鼻子一个点，嘴巴三个点，如下图(a); LBP特征参考<a href="https://senitco.github.io/2017/06/12/image-feature-lbp/" target="_blank" rel="noopener">图像特征提取之LBP特征</a></li>
 <li>2.通过拟合一个对基准点的转换（缩放，旋转，平移）对图像进行裁剪，得到下图(b)</li>
@@ -472,25 +472,31 @@
 <li>6.通过相关的映射，把原2D人脸中的基准点转换成3D模型产生的基准点，得到如图(f)所示，最后的正脸就是图(g)。<img src="/2019/04/23/faceRecognition1/deepface1.png" width="600" height="400" title="\">
 </li>
 </ul>
-</li>
-<li><p>人脸表示</p>
+<h4 id="人脸表示"><a href="#人脸表示" class="headerlink" title="人脸表示"></a>人脸表示</h4><p>   经过3D对齐以后，形成的图像都是152×152的图像，送入CNN，其结果如下：<br>   <img src="/2019/04/23/faceRecognition1/deepface2.png" width="800" height="200" title="\"></p>
 <ul>
 <li>1.如下图所示，训练了一个DNN来提取人脸图像的特征表示</li>
 <li>2.C1和C3表示卷积层，M2表示最大池化层，“32x11x11x3@142x142”表示使用32个大小为11x11x3的卷积核，输出feature map的大小为142x142。前三层主要提取低水平特征，其中最大池化可以使输出对微小的偏移更加鲁棒（可能人脸对齐歪了一些也没关系），因为最大池化会损失信息所有没有使用太多。</li>
 <li>3.L4，L5，L6是局部卷积层，对于feature map上每个位置，学到不同的卷积核（即一张feature map上的卷积核参数不共享），因为人脸的不同区域会有不同的统计特征，比如眼睛和眉毛之间的区域比鼻子和嘴巴之间的区域具有更高的区分能力。局部卷积层会导致更大的参数量，需要很大的数据量才能支撑的起。</li>
 <li>4.F7和F8是全连接层，用来捕捉（不同位置的）特征的相关性，比如眼睛的位置和形状，和嘴巴的位置和形状。F7层的输出提取出来作为人脸特征，和LBP特征对比。F8层的特征喂给softmax用于分类</li>
-<li>5.对F7层的输出特征进行归一化（除以训练集上所有样本中的最大值），得到的特征向量值都为0到1之间。<img src="/2019/04/23/faceRecognition1/deepface2.png" width="800" height="200" title="\">
+<li>5.对F7层的输出特征进行归一化（除以训练集上所有样本中的最大值），得到的特征向量值都为0到1之间。</li>
+<li><ol start="6">
+<li>具体参数：<br>C1：卷积层，卷积核尺寸11<em>11，共32个卷积核<br>M2：池化层，最大池化3</em>3，即stride = 2<br>C3：卷积层，卷积核尺寸9<em>9   ，共16个卷积核<br>L4： 卷积层，卷积核尺寸9</em>9   ，共16个卷积核。L表示local，意思是卷积核的参数不共享<br>L5： 卷积层，卷积核尺寸7<em>7   ，共16个卷积核。<br>L6： 卷积层，卷积核尺寸5</em>5   ，共16个卷积核。<br>F7： 全连接，4096个神经元<br>F8： 全连接，4030个神经元</li>
+</ol>
 </li>
+<li>7.使用参数不共享，有如下原因：<ul>
+<li>a.对齐的人脸图片中，不同的区域会有不同的统计特征，卷积的局部稳定性假设并不存在，所以使用相同的卷积核会导致信息的丢失</li>
+<li>b.不共享的卷积核并不增加抽取特征时的计算量，不会增加训练时的计算量</li>
+<li>c.使用不共享的卷积核，需要训练的参数量大大增加，因而需要很大的数据量，然而这个条件本文刚好满足。</li>
 </ul>
 </li>
-<li><p>验证度量</p>
-<ul>
+</ul>
+<h4 id="验证度量"><a href="#验证度量" class="headerlink" title="验证度量"></a>验证度量</h4><ul>
 <li>验证就是输入两个实例，判断它们是不是属于同一类。用监督学习来进行人脸验证被广泛研究。但是有监督学习中训练数据和测试数据的不一致会导致很差的泛化能力，如果将模型拟合在小的数据集则会大大减小它泛化到其它数据集的能力。无监督度量是直接对两个特征向量做内积，而<strong>有监督度量有卡方相似度和孪生网络</strong>。</li>
-<li>卡方相似度:  $ \nabla J\left( w \right) $</li>
-</ul>
+<li>卡方相似度: $$ χ^2(f_1,f_2)= \sum_i w_i(f_1[i]−f_2[i])^2 / (f_1[i]+f_2[i]) $$<br>其中$f_1$和$f_2$为DeepFace特征表示，在前面的阶段“人脸表示”得到。$w$用一个线性SVM学到，<br>SVM的变量为$ (f_1[i]−f_2[i])^2 / (f_1[i]+f_2[i]) $。</li>
+<li>孪生网络 (Siamese network)<br>把上面那个网络，复制两份，两个人脸分别输入两个小网络，两个小网络共享参数，最后计算两个输出的特征向量的距离，用一个全连接层映射为一个逻辑单元（相同还是不相同）。<br>网络的参数和上面那个一致，为了防止过拟合，训练的时候只训练最高两层。特征的度量公式为$d(f_1,f_2)=\sum_i α| f_1[i]−f_2[i] | $。网络结构可参考下图所示。<img src="/2019/04/23/faceRecognition1/deepface3.png" width="600" height="400" title="\">
 </li>
 </ul>
-<p>总体上说，这一步的作用就是使用3D模型来将人脸对齐，从而使CNN发挥最大的效果<br>神经网络能work的一部分原因在于，一旦人脸对齐，人脸区域的特征就固定在某些像素位置上了。</p>
+<p>总体上说，使用3D模型来将人脸对齐，从而使CNN发挥最大的效果。神经网络能work的一部分原因在于，一旦人脸对齐，人脸区域的特征就固定在某些像素位置上了。<br>这篇14年的文章，很多实现方法没有告知，而且没有code支撑，效果难以复现。</p>
 <h2 id="DeepID-商汤科技"><a href="#DeepID-商汤科技" class="headerlink" title="DeepID (商汤科技)"></a>DeepID (商汤科技)</h2><h2 id="GaussianFace-科大讯飞"><a href="#GaussianFace-科大讯飞" class="headerlink" title="GaussianFace (科大讯飞)"></a>GaussianFace (科大讯飞)</h2><h2 id="Face-旷视科技"><a href="#Face-旷视科技" class="headerlink" title="Face++ (旷视科技)"></a>Face++ (旷视科技)</h2><h2 id="FaceNet-Google"><a href="#FaceNet-Google" class="headerlink" title="FaceNet (Google)"></a>FaceNet (Google)</h2><h2 id="VGG-Face-牛津大学"><a href="#VGG-Face-牛津大学" class="headerlink" title="VGG-Face (牛津大学)"></a>VGG-Face (牛津大学)</h2><h2 id="FR-FCN"><a href="#FR-FCN" class="headerlink" title="FR+FCN"></a>FR+FCN</h2><h2 id="SphereFace"><a href="#SphereFace" class="headerlink" title="SphereFace"></a>SphereFace</h2><h2 id="NormFace"><a href="#NormFace" class="headerlink" title="NormFace"></a>NormFace</h2><h2 id="ArcFace"><a href="#ArcFace" class="headerlink" title="ArcFace"></a>ArcFace</h2><h2 id="MobileFaceNets"><a href="#MobileFaceNets" class="headerlink" title="MobileFaceNets"></a>MobileFaceNets</h2><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
 <li><a href="https://www.cnblogs.com/liaohuiqiang/p/9362575.html" target="_blank" rel="noopener">论文笔记：DeepFace: Closing the Gap to Human-Level Performance in Face Verification</a></li>
 <li><a href="http://www.zhongruitech.com/864658121.html" target="_blank" rel="noopener">DeepFace介绍</a></li>
@@ -707,7 +713,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#人脸识别简介"><span class="nav-number">1.</span> <span class="nav-text">人脸识别简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#人脸识别最新趋势"><span class="nav-number">2.</span> <span class="nav-text">人脸识别最新趋势</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#人脸识别论文"><span class="nav-number">3.</span> <span class="nav-text">人脸识别论文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepFace（2014，-FaceBook）"><span class="nav-number">3.1.</span> <span class="nav-text">DeepFace（2014， FaceBook）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本框架"><span class="nav-number">3.1.1.</span> <span class="nav-text">基本框架</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepID-商汤科技"><span class="nav-number">3.2.</span> <span class="nav-text">DeepID (商汤科技)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GaussianFace-科大讯飞"><span class="nav-number">3.3.</span> <span class="nav-text">GaussianFace (科大讯飞)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Face-旷视科技"><span class="nav-number">3.4.</span> <span class="nav-text">Face++ (旷视科技)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FaceNet-Google"><span class="nav-number">3.5.</span> <span class="nav-text">FaceNet (Google)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VGG-Face-牛津大学"><span class="nav-number">3.6.</span> <span class="nav-text">VGG-Face (牛津大学)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FR-FCN"><span class="nav-number">3.7.</span> <span class="nav-text">FR+FCN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SphereFace"><span class="nav-number">3.8.</span> <span class="nav-text">SphereFace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NormFace"><span class="nav-number">3.9.</span> <span class="nav-text">NormFace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArcFace"><span class="nav-number">3.10.</span> <span class="nav-text">ArcFace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MobileFaceNets"><span class="nav-number">3.11.</span> <span class="nav-text">MobileFaceNets</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#人脸识别简介"><span class="nav-number">1.</span> <span class="nav-text">人脸识别简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#人脸识别最新趋势"><span class="nav-number">2.</span> <span class="nav-text">人脸识别最新趋势</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#人脸识别论文"><span class="nav-number">3.</span> <span class="nav-text">人脸识别论文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepFace（2014，-FaceBook）"><span class="nav-number">3.1.</span> <span class="nav-text">DeepFace（2014， FaceBook）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本框架"><span class="nav-number">3.1.1.</span> <span class="nav-text">基本框架</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#人脸对齐-face-alignment"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">人脸对齐 (face alignment)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#人脸表示"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">人脸表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证度量"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">验证度量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepID-商汤科技"><span class="nav-number">3.2.</span> <span class="nav-text">DeepID (商汤科技)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GaussianFace-科大讯飞"><span class="nav-number">3.3.</span> <span class="nav-text">GaussianFace (科大讯飞)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Face-旷视科技"><span class="nav-number">3.4.</span> <span class="nav-text">Face++ (旷视科技)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FaceNet-Google"><span class="nav-number">3.5.</span> <span class="nav-text">FaceNet (Google)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VGG-Face-牛津大学"><span class="nav-number">3.6.</span> <span class="nav-text">VGG-Face (牛津大学)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FR-FCN"><span class="nav-number">3.7.</span> <span class="nav-text">FR+FCN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SphereFace"><span class="nav-number">3.8.</span> <span class="nav-text">SphereFace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NormFace"><span class="nav-number">3.9.</span> <span class="nav-text">NormFace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArcFace"><span class="nav-number">3.10.</span> <span class="nav-text">ArcFace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MobileFaceNets"><span class="nav-number">3.11.</span> <span class="nav-text">MobileFaceNets</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>
@@ -872,7 +878,66 @@
   
 
 
-  <script src="/js/src/bootstrap.js?v=7.0.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("");
 </script>
@@ -891,29 +956,7 @@
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
 
-
-
-  
-
-
-  
-
-
-  
-
-
-
-
-  
-
-  
-
-  
-  
-
-  
-  
-
+    
   
 
 
